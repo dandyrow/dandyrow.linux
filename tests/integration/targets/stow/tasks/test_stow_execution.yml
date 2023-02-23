@@ -1,0 +1,118 @@
+---
+- name: Stow nvim config files
+  dandyrow.iac.stow:
+    src: "{{ source_dir }}"
+    dest: "{{ target_dir }}"
+    package: ['nvim']
+  register: stow_output
+
+- name: Assert stow made changes
+  ansible.builtin.assert:
+    that:
+      - stow_output is changed
+      - "'LINK: plugin.lua' in stow_output.stderr"
+      - "'LINK: .vimrc' in stow_output.stderr"
+
+- name: Check files have been stowed
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: link
+  check_mode: true
+  with_items:
+    - "{{ target_dir }}/.vimrc"
+    - "{{ target_dir }}/plugin.lua"
+
+- name: Stow nvim config files
+  dandyrow.iac.stow:
+    src: "{{ source_dir }}"
+    dest: "{{ target_dir }}"
+    package: ['nvim']
+  register: stow_idempotency
+
+- name: Assert idempotency
+  ansible.builtin.assert:
+    that:
+      - stow_idempotency is not changed
+      - stow_idempotency.stderr_lines == []
+
+- name: Create conflicting file
+  ansible.builtin.file:
+    path: "{{ target_dir }}/.zshrc"
+    state: touch
+
+- name: Stow zsh config file
+  dandyrow.iac.stow:
+    src: "{{ source_dir }}"
+    dest: "{{ target_dir }}"
+    package: [ "zsh" ]
+  ignore_errors: true
+  register: file_conflict
+
+- name: Assert file conflict with .zshrc
+  ansible.builtin.assert:
+    that:
+      - "'* existing target is neither a link nor a directory: .zshrc' in file_conflict.stderr"
+      - file_conflict is not changed
+
+- name: Create conflicting directory
+  ansible.builtin.file:
+    path: "{{ target_dir }}/.zprofile"
+    state: directory
+
+- name: Stow zsh config file
+  dandyrow.iac.stow:
+    src: "{{ source_dir }}"
+    dest: "{{ target_dir }}"
+    package: [ "zsh" ]
+  ignore_errors: true
+  register: directory_conflict
+
+- name: Assert directory conflict with .zprofile
+  ansible.builtin.assert:
+    that:
+      - "'stow: ERROR: stow_contents() called with non-directory path: .dotfiles/zsh/.zprofile' in directory_conflict.stderr"
+      - directory_conflict is not changed
+
+- name: Stow zsh config file
+  dandyrow.iac.stow:
+    src: "{{ source_dir }}"
+    dest: "{{ target_dir }}"
+    package: [ "zsh" ]
+    force: true
+  ignore_errors: true
+  register: directory_conflict_force
+
+- name: Assert directory conflict even with force
+  ansible.builtin.assert:
+    that:
+      - "'stow: ERROR: stow_contents() called with non-directory path: .dotfiles/zsh/.zprofile' in directory_conflict.stderr"
+      - directory_conflict is not changed
+
+- name: Remove conflicting directory
+  ansible.builtin.file:
+    path: "{{ target_dir }}/.zprofile"
+    state: absent
+
+- name: Force stow zsh
+  dandyrow.iac.stow:
+    src: "{{ source_dir }}"
+    dest: "{{ target_dir }}"
+    package: [ "zsh" ]
+    force: true
+  register: force_stow
+
+- name: Assert force worked
+  ansible.builtin.assert:
+    that:
+      - force_stow is changed
+      - "'LINK: .zprofile' in force_stow.stderr"
+      - "'LINK: .zshrc' in force_stow.stderr"
+
+- name: Check files have been stowed
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: link
+  check_mode: true
+  with_items:
+    - "{{ target_dir }}/.zshrc"
+    - "{{ target_dir }}/.zprofile"
