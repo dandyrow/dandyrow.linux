@@ -1,12 +1,12 @@
-# See https://docs.ansible.com/ansible/latest/dev_guide/collections_galaxy_meta.html
-
+# https://docs.ansible.com/ansible/latest/dev_guide/collections_galaxy_meta.html
+---
 namespace: dandyrow
 name: iac
 version: 0.1.0
 readme: README.md
 authors:
   - Daniel Lowry (github.com/dandyrow)
-description: A collection of modules & roles for use in defining entire infrastructure as code.
+description: Collection of tools for defining infrastructure as code.
 license_file: LICENSE
 tags:
   - infrastructureascode
