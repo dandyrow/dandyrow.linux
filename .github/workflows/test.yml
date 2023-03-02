@@ -15,7 +15,7 @@
 # 6. See documentation for ansible-community/ansible-test-gh-action on
 # https://github.com/ansible-community/ansible-test-gh-action/blob/main/README.md
 ---
-name: CI
+name: Test Collection
 'on':
   # Run CI against all pushes (direct commits, also merged PRs), Pull Requests
   push:
