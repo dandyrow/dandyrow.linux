@@ -1,0 +1,78 @@
+---
+name: Release to Ansible Galaxy
+
+'on':
+  push:
+    tags:
+      - '*'
+
+jobs:
+  bump-version-number:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set version number to tag name
+        run: >
+          "sed -E -i 's/(version: ).*/\\1${{ github.ref_name }}/g' galaxy.yml"
+
+      - name: Commit version bump to repo
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Bumped version to ${{ github.ref_name }}
+          file_pattern: galaxy.yml
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+        with:
+          path: ansible_collections/dandyrow/iac
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: In1tall build dependencies
+        run: pip3 install ansible-core
+
+      - name: Build collection tarball
+        working-directory: ansible_collections/dandyrow/iac
+        run: ansible-galaxy collection build
+
+      - name: Upload collection build
+        uses: actions/upload-artifact@v3
+        with:
+          name: collection_tarball
+          path: ansible_collections/dandyrow/iac/dandyrow-iac-\
+            ${{ github.ref_name }}.tar.gz
+          if-no-files-found: error
+          retention-days: 1
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: collection_tarball
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install ansible
+        run: pip3 install ansible-core
+
+      - name: Release collection on Ansible Galaxy
+        run: >
+          ansible-galaxy collection publish
+          --token ${{ secrets.GALAXY_API_KEY }} -v
+          dandyrow-iac-${{ github.ref_name }}.tar.gz

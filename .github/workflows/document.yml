@@ -1,13 +1,17 @@
 ---
 name: Generate & deploy documentation
 'on':
-  pull_request:
+  workflow_run:
+    workflows: [Release to Ansible Galaxy]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
-    
+
 jobs:
   build:
-    name: Build docsite
+    name: Build & deploy docsite
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -27,17 +31,22 @@ jobs:
         run: ansible-galaxy collection build
 
       - name: Install collection locally
-        run: ansible-galaxy collection install dandyrow-iac-$(grep version galaxy.yml | awk '{print $2}').tar.gz
+        run: >
+          ansible-galaxy collection install
+          dandyrow-iac-$(grep version galaxy.yml | awk '{print $2}').tar.gz
 
       - name: Install sphinx dependencies
         run: pip3 install -r docs/requirements.txt
 
       - name: Build intermediate rst files
-        run: antsibull-docs collection --use-current --dest-dir docs dandyrow.iac
+        run: >
+          antsibull-docs collection --use-current
+          --dest-dir docs dandyrow.iac
 
       - name: Build docsite
-        run: sphinx-build -M html docs/collections/dandyrow/iac docs/build -c docs -W --keep-going
+        run: >
+          sphinx-build -M html docs/collections/dandyrow/iac
+          docs/build -c docs -W --keep-going
 
       - name: Deploy docsite to GitHub Pages
         uses: actions/deploy-pages@v1
-      
