@@ -81,14 +81,24 @@ jobs:
           - stable-2.14
           - devel
           # - milestone
+        python:
+          - 2.7
+          - 3.5
+          - 3.6
+          - 3.7
+          - 3.8
+          - 3.9
+          - 3.10
 
     steps:
       - name: >-
           Perform unit testing against
-          Ansible version ${{ matrix.ansible }}
+          Ansible version ${{ matrix.ansible }} &
+          Python version ${{ matrix.python }}
         uses: ansible-community/ansible-test-gh-action@release/v1
         with:
           ansible-core-version: ${{ matrix.ansible }}
+          target-python-version: ${{ matrix.python }}
           testing-type: units
           pull-request-change-detection: true
 
