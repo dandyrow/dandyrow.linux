@@ -24,7 +24,7 @@ import json
 
 from unittest import TestCase, main
 from ansible.module_utils import basic
-from ansible.module_utils.compat import typing
+# from ansible.module_utils.compat import typing
 from ansible.module_utils.common.text.converters import to_bytes
 from ansible_collections.dandyrow.iac.plugins.modules import stow
 try:
@@ -38,7 +38,7 @@ class AnsibleFailJson(Exception):
 
 
 def set_module_args(args):
-    # type: (dict[str, bool | str | typing.List[str]]) -> None
+    # type: (dict[str, bool | str | list[str]]) -> None
     """Prepare module arguments so they will be picked up during module initiation"""
     arg_str = json.dumps({'ANSIBLE_MODULE_ARGS': args})
     basic._ANSIBLE_ARGS = to_bytes(arg_str)  # pylint: disable=protected-access
