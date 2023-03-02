@@ -69,7 +69,7 @@ jobs:
 
   units:
     runs-on: ubuntu-latest
-    name: Units (Ⓐ${{ matrix.ansible }})
+    name: Units (Ⓐ${{ matrix.ansible }}+py${{ matrix.python }})
     strategy:
       # As soon as the first unit test fails,
       # cancel the others to free up the CI queue
@@ -82,13 +82,13 @@ jobs:
           - devel
           # - milestone
         python:
-          - 2.7
-          - 3.5
-          - 3.6
-          - 3.7
-          - 3.8
-          - 3.9
-          - 3.10
+          - '2.7'
+          - '3.5'
+          - '3.6'
+          - '3.7'
+          - '3.8'
+          - '3.9'
+          - '3.10'
 
     steps:
       - name: >-
