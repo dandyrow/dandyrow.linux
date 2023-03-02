@@ -19,7 +19,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: touch
-  with_items: 
+  with_items:
     - "{{ source_dir }}/zsh/.zshrc"
     - "{{ source_dir }}/zsh/.zprofile"
     - "{{ source_dir }}/nvim/.vimrc"

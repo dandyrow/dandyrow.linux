@@ -2,7 +2,7 @@
 - name: Test failure when source directory doesn't exist
   dandyrow.iac.stow:
     src: /path/doesnt/exist
-    package: 
+    package:
       - zsh
   ignore_errors: true
   register: source_fail

@@ -44,15 +44,17 @@
   dandyrow.iac.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
-    package: [ "zsh" ]
+    package: ["zsh"]
   ignore_errors: true
   register: file_conflict
 
 - name: Assert file conflict with .zshrc
   ansible.builtin.assert:
     that:
-      - "'* existing target is neither a link nor a directory: .zshrc' in file_conflict.stderr"
       - file_conflict is not changed
+      - >
+        "'* existing target is neither a link nor a directory: .zshrc'
+        in file_conflict.stderr"
 
 - name: Create conflicting directory
   ansible.builtin.file:
@@ -63,21 +65,23 @@
   dandyrow.iac.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
-    package: [ "zsh" ]
+    package: ["zsh"]
   ignore_errors: true
   register: directory_conflict
 
 - name: Assert directory conflict with .zprofile
   ansible.builtin.assert:
     that:
-      - "'stow: ERROR: stow_contents() called with non-directory path: .dotfiles/zsh/.zprofile' in directory_conflict.stderr"
       - directory_conflict is not changed
+      - >
+        "'stow: ERROR: stow_contents() called with non-directory path:
+        .dotfiles/zsh/.zprofile' in directory_conflict.stderr"
 
 - name: Stow zsh config file
   dandyrow.iac.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
-    package: [ "zsh" ]
+    package: ["zsh"]
     force: true
   ignore_errors: true
   register: directory_conflict_force
@@ -85,8 +89,10 @@
 - name: Assert directory conflict even with force
   ansible.builtin.assert:
     that:
-      - "'stow: ERROR: stow_contents() called with non-directory path: .dotfiles/zsh/.zprofile' in directory_conflict.stderr"
       - directory_conflict is not changed
+      - >
+        "'stow: ERROR: stow_contents() called with non-directory path:
+        .dotfiles/zsh/.zprofile' in directory_conflict.stderr"
 
 - name: Remove conflicting directory
   ansible.builtin.file:
@@ -97,7 +103,7 @@
   dandyrow.iac.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
-    package: [ "zsh" ]
+    package: ["zsh"]
     force: true
   register: force_stow
 
