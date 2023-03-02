@@ -1,0 +1,10 @@
+---
+- name: Setup test environment
+  ansible.builtin.include_tasks: setup.yml
+
+- name: Run integration tests
+  ansible.builtin.include_tasks: "{{ item }}"
+  with_items:
+    - test_param_validation.yml
+    - test_check_mode.yml
+    - test_stow_execution.yml

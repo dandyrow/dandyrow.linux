@@ -12,11 +12,11 @@
 #    https://github.com/marketplace/actions/alls-green#gotchas for more detail.
 # 5. If you need help please ask in #ansible-community on the Libera.chat IRC
 #    network.
-# 6. See documentation for the ansible-community/ansible-test-gh-action GitHub Action 
-#    on https://github.com/ansible-community/ansible-test-gh-action/blob/main/README.md
-
-name: CI
-on:
+# 6. See documentation for ansible-community/ansible-test-gh-action on
+# https://github.com/ansible-community/ansible-test-gh-action/blob/main/README.md
+---
+name: Test Collection
+'on':
   # Run CI against all pushes (direct commits, also merged PRs), Pull Requests
   push:
     branches:
@@ -38,11 +38,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
-###
-# Sanity tests
-#
-# https://docs.ansible.com/ansible/latest/dev_guide/testing_sanity.html
+  ###
+  # Sanity tests
+  #
+  # https://docs.ansible.com/ansible/latest/dev_guide/testing_sanity.html
 
   sanity:
     name: Sanity (Ⓐ${{ matrix.ansible }})
@@ -53,7 +52,7 @@ jobs:
           - stable-2.13
           - stable-2.14
           - devel
-        # - milestone
+          # - milestone
     runs-on: ubuntu-latest
     steps:
       - name: Perform sanity testing
@@ -63,16 +62,17 @@ jobs:
           testing-type: sanity
           pull-request-change-detection: true
 
-###
-# Unit tests
-#
-# https://docs.ansible.com/ansible/latest/dev_guide/testing_units.html
+  ###
+  # Unit tests
+  #
+  # https://docs.ansible.com/ansible/latest/dev_guide/testing_units.html
 
   units:
     runs-on: ubuntu-latest
-    name: Units (Ⓐ${{ matrix.ansible }})
+    name: Units (Ⓐ${{ matrix.ansible }}+py${{ matrix.python }})
     strategy:
-      # As soon as the first unit test fails, cancel the others to free up the CI queue
+      # As soon as the first unit test fails,
+      # cancel the others to free up the CI queue
       fail-fast: true
       matrix:
         ansible:
@@ -80,27 +80,36 @@ jobs:
           - stable-2.13
           - stable-2.14
           - devel
-        # - milestone
+          # - milestone
+        python:
+          - '2.7'
+          - '3.5'
+          - '3.6'
+          - '3.7'
+          - '3.8'
+          - '3.9'
+          - '3.10'
 
     steps:
       - name: >-
           Perform unit testing against
-          Ansible version ${{ matrix.ansible }}
+          Ansible version ${{ matrix.ansible }} &
+          Python version ${{ matrix.python }}
         uses: ansible-community/ansible-test-gh-action@release/v1
         with:
           ansible-core-version: ${{ matrix.ansible }}
+          target-python-version: ${{ matrix.python }}
           testing-type: units
           pull-request-change-detection: true
 
-###
-# Integration tests
-#
-# https://docs.ansible.com/ansible/latest/dev_guide/testing_integration.html
+  ###
+  # Integration tests
+  #
+  # https://docs.ansible.com/ansible/latest/dev_guide/testing_integration.html
 
-
-# If the application you are testing is available as a docker container and you want to test
-# multiple versions see the following for an example:
-# https://github.com/ansible-collections/community.zabbix/tree/master/.github/workflows
+  # If the application you are testing is available as a docker container
+  # and you want to test multiple versions see the following for an example:
+  # https://github.com/ansible-collections/community.zabbix/tree/master/.github/workflows
 
   integration:
     runs-on: ubuntu-latest
@@ -131,7 +140,6 @@ jobs:
             python: '2.6'
           - ansible: devel
             python: '2.6'
-            
 
     steps:
       - name: >-
@@ -145,8 +153,8 @@ jobs:
           testing-type: integration
           pull-request-change-detection: true
 
-  # Job used for branch protection or multi-stage CI jobs to make sure that 
-  # all tests pass before allow a pull request merge or running a publishing job.
+  # Job used for branch protection or multi-stage CI jobs to make sure that all
+  # tests pass before allow a pull request merge or running a publishing job.
   check:
     if: always()
 

@@ -1,0 +1,3 @@
+---
+target_dir: /tmp/test
+source_dir: /tmp/test/.dotfiles
