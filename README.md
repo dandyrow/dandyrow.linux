@@ -1,6 +1,6 @@
 # Dandyrow's infrastructure as code collection for Ansible
 
-[![CI](https://github.com/dandyrow/dandyrow.iac/workflows/CI/badge.svg?event=push)](https://github.com/dandyrow/dandyrow.iac/actions)
+[![Test Collection](https://github.com/dandyrow/dandyrow.iac/actions/workflows/test.yml/badge.svg)](https://github.com/dandyrow/dandyrow.iac/actions/workflows/test.yml)
 
 iac = infrastructure as code
 
@@ -72,7 +72,7 @@ Documentation on using the contents of this collection can be found on the colle
 
 ## Release notes
 
-See the [changelog](https://github.com/ansible-collections/REPONAMEHERE/tree/main/CHANGELOG.rst).
+See the release notes on the [GitHub releases page](https://github.com/dandyrow/dandyrow.iac/releases).
 
 ## More information
 
