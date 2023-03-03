@@ -1,17 +1,15 @@
 ---
 name: Generate & deploy documentation
 'on':
-  workflow_run:
-    workflows: [Release to Ansible Galaxy]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
     name: Build & deploy docsite
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      id-token: write
+      pages: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -47,6 +45,11 @@ jobs:
         run: >
           sphinx-build -M html docs/collections/dandyrow/iac
           docs/build -c docs -W --keep-going
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: docs/build/html/
 
       - name: Deploy docsite to GitHub Pages
         uses: actions/deploy-pages@v1
