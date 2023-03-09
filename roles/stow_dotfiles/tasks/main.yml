@@ -20,6 +20,6 @@
   dandyrow.iac.stow:
     src: "{{ dotfiles_local_repo }}"
     dest: "{{ dotfiles_target_path }}"
-    packages: "{{ dotfiles_to_install }}"
+    package: "{{ dotfiles_to_install }}"
     force: "{{ dotfiles_force_stow }}"
     state: present
