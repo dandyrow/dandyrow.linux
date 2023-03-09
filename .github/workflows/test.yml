@@ -156,7 +156,7 @@ jobs:
 
   integration-role:
     runs-on: ubuntu-latest
-    name: Integration - Roles (Ⓐ${{ matrix.ansible }}+py${{ matrix.python }})
+    name: Integration - Roles (Distro ${{ matrix.distro }})
     strategy:
       fail-fast: false
       matrix:
@@ -183,7 +183,7 @@ jobs:
 
       - name: Run Molecule tests.
         working-directory: ansible_collections/dandyrow/iac/tests/integration
-        run: molecule test
+        run: molecule test --all
         env:
           MOLECULE_DISTRO: ${{ matrix.distro }}
 
