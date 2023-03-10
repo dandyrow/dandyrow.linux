@@ -6,7 +6,7 @@ argument_specs:
       - >-
         Install dotfiles from a remote Git repository
         to a specified target location.
-    author: 
+    author:
       - Daniel Lowry (github.com/dandyrow)
     options:
       dotfiles_remote_repo:
