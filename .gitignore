@@ -133,3 +133,6 @@ dmypy.json
 
 # Generated docs
 docs/collections
+
+# Local collection builds
+*.tar.gz

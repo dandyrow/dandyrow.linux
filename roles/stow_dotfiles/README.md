@@ -15,7 +15,7 @@ The default values of each variable are shown after the colon.
 
 The following variables are declared in defaults/main.yml:
 
-`dotfiles_remote_repo: https://github.com/dandyrow/dotfiles.git` - URL of dotfiles repo to install dotfiles from. Set to my dotfiles repo by default.
+`dotfiles_remote_repo: ''` - URL of dotfiles repo to install dotfiles from. Set to my dotfiles repo by default.
 
 `dotfiles_local_repo: ~/.dotfiles` - Local path where dotfiles repo will be cloned to. Defaults to .dotfiles folder within the home directory of the user ansible is executing as.
 
