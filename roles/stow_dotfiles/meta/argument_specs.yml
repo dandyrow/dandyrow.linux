@@ -1,0 +1,51 @@
+---
+argument_specs:
+  main:
+    short_description: Install dotfiles from remote Git repository
+    description:
+      - >-
+        Install dotfiles from a remote Git repository
+        to a specified target location.
+    author: 
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      dotfiles_remote_repo:
+        description: URL of remote repo to install dotfiles from.
+        type: str
+        required: true
+
+      dotfiles_local_repo:
+        description:
+          - Local path where remote repo will be cloned to.
+          - >-
+            Defaults to ,dotfiles sub-directory within the home folder
+            of the user ansible is executing as.
+        type: str
+        default: ~/.dotfiles
+
+      dotfiles_pull_single_branch:
+        description:
+          - Whether to pull a single branche from the remote repo.
+          - Set branch to pull with dotfiles_repo_branch variable.
+        type: bool
+        default: true
+
+      dotfiles_repo_branch:
+        description: Which remote branch to pull from.
+        type: str
+        default: master
+
+      dotfiles_target_path:
+        description:
+          - Target location to install (stow) the specified dotfiles.
+          - Defaults to the home directory of the user ansible is executing as.
+        type: path
+        default: ~/
+
+      dotfiles_to_install:
+        description: >-
+          List of names of folders within dotfiles repo to install
+          to the target path.
+        type: list
+        elements: str
+        required: true
