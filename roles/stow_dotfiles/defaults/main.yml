@@ -1,5 +1,5 @@
 ---
-dotfiles_remote_repo: https://github.com/dandyrow/dotfiles.git
+dotfiles_remote_repo: ''
 dotfiles_local_repo: ~/.dotfiles
 dotfiles_pull_single_branch: true
 dotfiles_repo_branch: master

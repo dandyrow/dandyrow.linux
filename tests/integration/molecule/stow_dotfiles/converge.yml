@@ -4,6 +4,7 @@
   roles:
     - role: dandyrow.iac.stow_dotfiles
       vars:
+        dotfiles_remote_repo: https://github.com/dandyrow/dotfiles.git
         dotfiles_to_install:
           - zsh
           - starship
