@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  role_name: stow_dotfiles
+  author: Daniel Lowry
+  namespace: dandyrow
+  description: >-
+    Ansible role to install dotfiles from a specified repo using GNU stow
+  license: GPL-3.0-only
+  min_ansible_version: "2.12"
+
+  platforms:
+    - name: ArchLinux
+
+  galaxy_tags:
+    - shell
+    - linux
+    - dotfiles
+    - stow
+
+dependencies: []

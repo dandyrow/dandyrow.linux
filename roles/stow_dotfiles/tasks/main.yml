@@ -1,0 +1,25 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure required packages are installed
+  ansible.builtin.package:
+    name: "{{ required_packages }}"
+    state: present
+
+- name: Ensure dotfiles is cloned to {{ dotfiles_local_repo }}
+  ansible.builtin.git:
+    repo: "{{ dotfiles_remote_repo }}"
+    dest: "{{ dotfiles_local_repo }}"
+    single_branch: "{{ dotfiles_pull_single_branch }}"
+    version: "{{ dotfiles_repo_branch }}"
+
+- name: Stow packages into {{ dotfiles_target_path }}
+  dandyrow.iac.stow:
+    src: "{{ dotfiles_local_repo }}"
+    dest: "{{ dotfiles_target_path }}"
+    package: "{{ dotfiles_to_install }}"
+    force: "{{ dotfiles_force_stow }}"
+    state: present
