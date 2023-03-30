@@ -18,7 +18,7 @@ We are actively accepting new contributors.
 
 Any kind of contribution is very welcome.
 
-If you would like to contribute please read the information in the [CONTRIBUTING](CONTRIBUTING.md) file.
+If you would like to contribute please read the information in the [CONTRIBUTING](https://github.com/dandyrow/dandyrow.iac/blob/main/CONTRIBUTING.md) file.
 
 ## Governance
 
