@@ -1,6 +1,6 @@
 ---
 - name: Stow nvim config files
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
     package: ['nvim']
@@ -23,7 +23,7 @@
     - "{{ target_dir }}/plugin.lua"
 
 - name: Stow nvim config files
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
     package: ['nvim']
@@ -41,7 +41,7 @@
     state: touch
 
 - name: Stow zsh config file
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
     package: ["zsh"]
@@ -62,7 +62,7 @@
     state: directory
 
 - name: Stow zsh config file
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
     package: ["zsh"]
@@ -78,7 +78,7 @@
         .dotfiles/zsh/.zprofile' in directory_conflict.stderr"
 
 - name: Stow zsh config file
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
     package: ["zsh"]
@@ -100,7 +100,7 @@
     state: absent
 
 - name: Force stow zsh
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
     package: ["zsh"]
