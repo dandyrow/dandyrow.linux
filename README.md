@@ -1,10 +1,8 @@
-# Dandyrow's infrastructure as code collection for Ansible
+# dandyrow.linux Ansible collection
 
 [![Test Collection](https://github.com/dandyrow/dandyrow.linux/actions/workflows/test.yml/badge.svg)](https://github.com/dandyrow/dandyrow.linux/actions/workflows/test.yml)
 
-linux = infrastructure as code
-
-This collection contains modules and roles relating to my project to define my homelab infrastructure as code to allow quicker disaster recovery and consistent environments to be created.
+This collection contains modules and roles to install, configure and interact with linux software.
 
 A key module contained within this collection is the stow module. This allows Ansible to interact with the GNU stow utility. This is useful for installing dotfiles which have been organised into packages which can be expanded with said utility.
 
@@ -26,8 +24,7 @@ The final say regarding the direction of this collection remains with me, the ow
 
 ## Tested with Ansible
 
-<!-- TODO: List the versions of Ansible the collection has been tested with. Must match what is in galaxy.yml. -->
- TBT = to be tested :)
+This collection has been tested against ansible versions from 2.12.0 to 2.15.0.
 
 ## External requirements
 
@@ -58,10 +55,10 @@ Note that if you install the collection from Ansible Galaxy, it will not be upgr
 ansible-galaxy collection install dandyrow.linux --upgrade
 ```
 
-You can also install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). Use the following syntax to install version `0.1.0`:
+You can also install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). Use the following syntax to install version `2.0.0`:
 
 ```bash
-ansible-galaxy collection install dandyrow.linux:==0.1.0
+ansible-galaxy collection install dandyrow.linux:==2.0.0
 ```
 
 See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
