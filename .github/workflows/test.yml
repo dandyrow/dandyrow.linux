@@ -171,7 +171,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
         with:
-          path: ansible_collections/dandyrow/iac
+          path: ansible_collections/dandyrow/linux
 
       - name: Set up Python
         uses: actions/setup-python@v3
@@ -182,7 +182,7 @@ jobs:
         run: pip3 install ansible yamllint ansible-lint molecule[podman] podman
 
       - name: Run Molecule tests.
-        working-directory: ansible_collections/dandyrow/iac/tests/integration
+        working-directory: ansible_collections/dandyrow/linux/tests/integration
         run: molecule test --all
         env:
           MOLECULE_DISTRO: ${{ matrix.distro }}

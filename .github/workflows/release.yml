@@ -15,10 +15,10 @@ jobs:
   #     - name: Checkout source
   #       uses: actions/checkout@v3
   #       with:
-  #         path: ansible_collections/dandyrow/iac
+  #         path: ansible_collections/dandyrow/linux
 
   #     - name: Set version number to tag name
-  #       working-directory: ansible_collections/dandyrow/iac
+  #       working-directory: ansible_collections/dandyrow/linux
   #       run: >
   #         "sed -E -i 's/(version: ).*/\\1${{ github.ref_name }}/g' galaxy.yml"
 
@@ -35,7 +35,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
         with:
-          path: ansible_collections/dandyrow/iac
+          path: ansible_collections/dandyrow/linux
 
       - name: Set up Python
         uses: actions/setup-python@v3
@@ -46,15 +46,15 @@ jobs:
         run: pip3 install ansible-core
 
       - name: Build collection tarball
-        working-directory: ansible_collections/dandyrow/iac
+        working-directory: ansible_collections/dandyrow/linux
         run: ansible-galaxy collection build
 
       - name: Upload collection build
         uses: actions/upload-artifact@v3
         with:
           name: collection_tarball
-          path: "ansible_collections/dandyrow/iac/\
-            dandyrow-iac-${{ github.ref_name }}.tar.gz"
+          path: "ansible_collections/dandyrow/linux/\
+            dandyrow-linux-${{ github.ref_name }}.tar.gz"
           if-no-files-found: error
           retention-days: 1
 
@@ -79,4 +79,4 @@ jobs:
         run: >
           ansible-galaxy collection publish
           --token ${{ secrets.GALAXY_API_KEY }} -v
-          dandyrow-iac-${{ github.ref_name }}.tar.gz
+          dandyrow-linux-${{ github.ref_name }}.tar.gz
