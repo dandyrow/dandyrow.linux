@@ -6,7 +6,7 @@ We are actively accepting new contributors.
 
 Any kind of contribution is very welcome, whether it be adding support for another Linux distro, fixing a bug or improving documentation.
 
-Discussions regarding contributions and their impact on the wider project will be conducted in the [issue tracker](https://github.com/dandyrow/dandyrow.iac/actions) on the collection's GitHub repo.
+Discussions regarding contributions and their impact on the wider project will be conducted in the [issue tracker](https://github.com/dandyrow/dandyrow.linux/actions) on the collection's GitHub repo.
 
 The final say on any contributions to this collection will be made by me (dandyrow) following a discussion about the contribution and the wider implications it has on the project's goals. Having said that I am very open to all improvements anyone wishes to make.
 

@@ -1,6 +1,6 @@
 ---
 - name: Test failure when source directory doesn't exist
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: /path/doesnt/exist
     package:
       - zsh
@@ -14,7 +14,7 @@
       - "'does not exist' in source_fail.msg"
 
 - name: Test failure when target directory doesn't exist
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ source_dir }}"
     dest: /path/doesnt/exist
     package:

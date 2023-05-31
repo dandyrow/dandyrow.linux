@@ -19,7 +19,7 @@
     version: "{{ dotfiles_repo_branch }}"
 
 - name: Stow packages into {{ dotfiles_target_path }}
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ dotfiles_local_repo }}"
     dest: "{{ dotfiles_target_path }}"
     package: "{{ dotfiles_to_install }}"

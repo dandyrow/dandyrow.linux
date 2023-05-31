@@ -6,11 +6,11 @@
 # documentation:
 # http://www.sphinx-doc.org/en/master/config
 
-project = 'dandyrow.iac Ansible collection'
+project = 'dandyrow.linux Ansible collection'
 copyright = 'Daniel Lowry'
 
-title = 'dandyrow.iac Ansible Collection Documentation'
-html_short_title = 'dandyrow.iac Documentation'
+title = 'dandyrow.linux Ansible Collection Documentation'
+html_short_title = 'dandyrow.linux Documentation'
 
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx_antsibull_ext']
 

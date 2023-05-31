@@ -31,7 +31,7 @@ jobs:
       - name: Install collection locally
         run: >
           ansible-galaxy collection install
-          dandyrow-iac-$(grep version galaxy.yml | awk '{print $2}').tar.gz
+          dandyrow-linux-$(grep version galaxy.yml | awk '{print $2}').tar.gz
 
       - name: Install sphinx dependencies
         run: pip3 install -r docs/requirements.txt
@@ -39,11 +39,11 @@ jobs:
       - name: Build intermediate rst files
         run: >
           antsibull-docs collection --use-current
-          --dest-dir docs dandyrow.iac
+          --dest-dir docs dandyrow.linux
 
       - name: Build docsite
         run: >
-          sphinx-build -M html docs/collections/dandyrow/iac
+          sphinx-build -M html docs/collections/dandyrow/linux
           docs/build -c docs -W --keep-going
 
       - name: Upload pages artifact

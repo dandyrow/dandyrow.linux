@@ -1,14 +1,14 @@
 # Dandyrow's infrastructure as code collection for Ansible
 
-[![Test Collection](https://github.com/dandyrow/dandyrow.iac/actions/workflows/test.yml/badge.svg)](https://github.com/dandyrow/dandyrow.iac/actions/workflows/test.yml)
+[![Test Collection](https://github.com/dandyrow/dandyrow.linux/actions/workflows/test.yml/badge.svg)](https://github.com/dandyrow/dandyrow.linux/actions/workflows/test.yml)
 
-iac = infrastructure as code
+linux = infrastructure as code
 
 This collection contains modules and roles relating to my project to define my homelab infrastructure as code to allow quicker disaster recovery and consistent environments to be created.
 
 A key module contained within this collection is the stow module. This allows Ansible to interact with the GNU stow utility. This is useful for installing dotfiles which have been organised into packages which can be expanded with said utility.
 
-https://github.com/dandyrow/dandyrow.iac
+https://github.com/dandyrow/dandyrow.linux
 
 ## Contributing to this collection
 
@@ -18,7 +18,7 @@ We are actively accepting new contributors.
 
 Any kind of contribution is very welcome.
 
-If you would like to contribute please read the information in the [CONTRIBUTING](https://github.com/dandyrow/dandyrow.iac/blob/main/CONTRIBUTING.md) file.
+If you would like to contribute please read the information in the [CONTRIBUTING](https://github.com/dandyrow/dandyrow.linux/blob/main/CONTRIBUTING.md) file.
 
 ## Governance
 
@@ -35,7 +35,7 @@ The stow module found within this collection relies on the GNU stow utility bein
 
 ## Included content
 
-Content included within this collection can be found within the [documentation](https://dandyrow.github.io/dandyrow.iac/).
+Content included within this collection can be found within the [documentation](https://dandyrow.github.io/dandyrow.linux/).
 
 ## Using this collection
 
@@ -43,41 +43,41 @@ Content included within this collection can be found within the [documentation](
 
 Before using this collection, you need to install it with the Ansible Galaxy command-line tool:
 ```bash
-ansible-galaxy collection install dandyrow.iac
+ansible-galaxy collection install dandyrow.linux
 ```
 
 You can also include it in a `requirements.yml` file and install it with `ansible-galaxy collection install -r requirements.yml`, using the format:
 ```yaml
 ---
 collections:
-  - name: dandyrow.iac
+  - name: dandyrow.linux
 ```
 
 Note that if you install the collection from Ansible Galaxy, it will not be upgraded automatically when you upgrade the `ansible` package. To upgrade the collection to the latest available version, run the following command:
 ```bash
-ansible-galaxy collection install dandyrow.iac --upgrade
+ansible-galaxy collection install dandyrow.linux --upgrade
 ```
 
 You can also install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). Use the following syntax to install version `0.1.0`:
 
 ```bash
-ansible-galaxy collection install dandyrow.iac:==0.1.0
+ansible-galaxy collection install dandyrow.linux:==0.1.0
 ```
 
 See [Ansible Using collections](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html) for more details.
 
 ### Using the contents of this collection
 
-Documentation on using the contents of this collection can be found on the collection's [docsite](https://dandyrow.github.io/dandyrow.iac/).
+Documentation on using the contents of this collection can be found on the collection's [docsite](https://dandyrow.github.io/dandyrow.linux/).
 
 ## Release notes
 
-See the release notes on the [GitHub releases page](https://github.com/dandyrow/dandyrow.iac/releases).
+See the release notes on the [GitHub releases page](https://github.com/dandyrow/dandyrow.linux/releases).
 
 ## More information
 
-- [dandyrow.iac Collection Documentation](https://dandyrow.github.io/dandyrow.iac)
-- [Collection's Ansible Galaxy Page](https://galaxy.ansible.com/dandyrow/iac)
+- [dandyrow.linux Collection Documentation](https://dandyrow.github.io/dandyrow.linux)
+- [Collection's Ansible Galaxy Page](https://galaxy.ansible.com/dandyrow/linux)
 - [Ansible Collection overview](https://github.com/ansible-collections/overview)
 - [Ansible User guide](https://docs.ansible.com/ansible/devel/user_guide/index.html)
 - [Ansible Developer guide](https://docs.ansible.com/ansible/devel/dev_guide/index.html)
