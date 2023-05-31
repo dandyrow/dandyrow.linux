@@ -1,7 +1,7 @@
 # https://docs.ansible.com/ansible/latest/dev_guide/collections_galaxy_meta.html
 ---
 namespace: dandyrow
-name: iac
+name: linux
 version: 1.1.1
 readme: README.md
 authors:
@@ -13,9 +13,9 @@ tags:
   - linux
   - stow
   - infrastructure
-repository: https://github.com/dandyrow/dandyrow.iac
-documentation: https://dandyrow.github.io/dandyrow.iac
-homepage: https://dandyrow.github.io/dandyrow.iac
-issues: https://github.com/dandyrow/dandyrow.iac/issues
+repository: https://github.com/dandyrow/dandyrow.linux
+documentation: https://dandyrow.github.io/dandyrow.linux
+homepage: https://dandyrow.github.io/dandyrow.linux
+issues: https://github.com/dandyrow/dandyrow.linux/issues
 build_ignore:
   - .gitignore
