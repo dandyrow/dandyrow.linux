@@ -34,7 +34,7 @@ The following variable can be found in vars/main.yml:
 Dependencies
 ------------
 
-This role is part of and depends on the [dandyrow.iac collection.](https://github.com/dandyrow/dandyrow.iac)
+This role is part of and depends on the [dandyrow.linux collection.](https://github.com/dandyrow/dandyrow.linux)
 
 Example Playbook
 ----------------

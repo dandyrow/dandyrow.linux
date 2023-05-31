@@ -26,7 +26,7 @@ from unittest import TestCase, main
 from ansible.module_utils import basic
 # from ansible.module_utils.compat import typing
 from ansible.module_utils.common.text.converters import to_bytes
-from ansible_collections.dandyrow.iac.plugins.modules import stow
+from ansible_collections.dandyrow.linux.plugins.modules import stow
 try:
     from unittest.mock import patch
 except ImportError:
@@ -208,7 +208,7 @@ class TestDirValidation(TestCase):
         """Return True if path is /this/path/exists otherwise return False"""
         return path == '/this/path/exists' or path == '/etc'
 
-    @patch('ansible_collections.dandyrow.iac.plugins.modules.stow.os.path')
+    @patch('ansible_collections.dandyrow.linux.plugins.modules.stow.os.path')
     def test_dir_not_exist(self, mock_path):
         """Tests passed in function called if one of passed in directories doesn't exist"""
         mock_path.isdir = self.isdir
@@ -217,7 +217,7 @@ class TestDirValidation(TestCase):
         actual_result = stow.validate_directories(['test', 'folder'])
         self.assertEqual(expected_result, actual_result)
 
-    @patch('ansible_collections.dandyrow.iac.plugins.modules.stow.os.path')
+    @patch('ansible_collections.dandyrow.linux.plugins.modules.stow.os.path')
     def test_dir_exists(self, mock_path):
         """Tests that nothing happens if all directories exist"""
         mock_path.isdir = self.isdir

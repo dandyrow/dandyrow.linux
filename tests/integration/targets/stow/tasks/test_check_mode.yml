@@ -1,6 +1,6 @@
 ---
 - name: Run stow module in check mode
-  dandyrow.iac.stow:
+  dandyrow.linux.stow:
     src: "{{ source_dir }}"
     dest: "{{ target_dir }}"
     package:
