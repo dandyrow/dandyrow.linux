@@ -1,0 +1,34 @@
+---
+- name: Configure root login
+  ansible.builtin.lineinfile:
+    path: "{{ cloud_init_config }}"
+    regexp: '^disable_root: '
+    line: "disable_root: {{ disable_root }}"
+
+- name: Configure preserve hostname
+  ansible.builtin.lineinfile:
+    path: "{{ cloud_init_config }}"
+    regexp: "^preserve_hostname: "
+    line: "preserve_hostname: {{ preserve_hostname }}"
+
+- name: Enable default user creation
+  ansible.builtin.lineinfile:
+    path: "{{ cloud_init_config }}"
+    regexp: "^  - default$"
+    state: present
+  when: create_default_user
+
+- name: Disable default user creation
+  ansible.builtin.lineinfile:
+    path: "{{ cloud_init_config }}"
+    regexp: "^  - default$"
+    state: absent
+  when: not create_default_user
+
+- name: Configure datasources
+  ansible.builtin.lineinfile:
+    path: "{{ cloud_init_config }}"
+    regexp: "^datasource_list: "
+    insertafter: "^preserve_hostname: "
+    line: "datasource_list: {{ datasource_list }}"
+  when: datasource_list is defined
