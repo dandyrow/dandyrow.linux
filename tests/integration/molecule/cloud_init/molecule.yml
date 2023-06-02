@@ -4,7 +4,7 @@ dependency:
 driver:
   name: podman
 platforms:
-  - name: instance
+  - name: cloud_init
     image: ghcr.io/dandyrow/podman-${MOLECULE_DISTRO:-archlinux}-ansible:latest
     pre_build_image: false
     command: ""
