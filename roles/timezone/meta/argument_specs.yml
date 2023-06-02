@@ -1,0 +1,20 @@
+---
+argument_specs:
+  main:
+    short_description: Configure timezone & hwclock
+    description:
+      - Configure system timezone and hardware clock.
+      - Hardware clock will only be set on non-virtualised hosts.
+    author:
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      region:
+        description:
+          - Region of desired timezone (ie Europe, Africa, etc.).
+        type: str
+        default: Europe
+      city:
+        description:
+          - City of desired timezone (ie Dublin, Singapore, etc.).
+        type: str
+        default: Dublin

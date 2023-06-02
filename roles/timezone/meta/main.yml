@@ -1,0 +1,30 @@
+---
+galaxy_info:
+  role_name: stow_dotfiles
+  author: Daniel Lowry
+  namespace: dandyrow
+  description: Configure system timezone and hardware clock.
+  license: GPL-3.0-only
+  min_ansible_version: "2.12"
+
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - "jammy"
+        - "focal"
+    - name: Debian
+      version:
+        - "bullseye"
+        - "buster"
+
+  galaxy_tags:
+    - time
+    - linux
+    - timezone
+    - localisation
+    - localization
+
+dependencies: []
