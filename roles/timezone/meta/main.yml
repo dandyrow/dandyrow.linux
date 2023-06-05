@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: stow_dotfiles
+  role_name: timezone
   author: Daniel Lowry
   namespace: dandyrow
   description: Configure system timezone and hardware clock.
