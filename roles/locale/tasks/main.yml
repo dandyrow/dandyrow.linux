@@ -1,0 +1,27 @@
+---
+- name: Set the locale in the locale file in the new arch install
+  ansible.builtin.lineinfile:
+    path: /etc/locale.gen
+    regexp: "^#{{ locale }}"
+    line: "{{ locale }}"
+  register: locale_update
+
+- name: Generate locales
+  ansible.builtin.command: locale-gen
+  when: locale_update is changed
+
+- name: Create locale config file
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/locale.j2"
+    dest: /etc/locale.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Create vconsole config file
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/vconsole.j2"
+    dest: /etc/vconsole.conf
+    owner: root
+    group: root
+    mode: "0644"
