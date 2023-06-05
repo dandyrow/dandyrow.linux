@@ -1,0 +1,3 @@
+---
+esp_path: /efi
+default_entry: "{{ entry_title }}.conf"

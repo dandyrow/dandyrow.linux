@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+title {{ entry_title }}
+linux /vmlinuz-linux
+initrd /initramfs-linux.img
+options root=UUID={{ root_partition_uuid.stdout_lines[0] }} rw

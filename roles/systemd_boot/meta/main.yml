@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  role_name: systemd_boot
+  author: Daniel Lowry
+  namespace: dandyrow
+  description: Installs and configures systemd-boot
+  license: GPL-3.0-only
+  min_ansible_version: "2.12"
+
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+
+  galaxy_tags:
+    - shell
+    - linux
+    - dotfiles
+    - stow
+
+dependencies: []
