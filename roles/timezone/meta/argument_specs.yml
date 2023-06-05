@@ -12,9 +12,10 @@ argument_specs:
         description:
           - Region of desired timezone (ie Europe, Africa, etc.).
         type: str
-        default: Europe
+        required: true
+
       city:
         description:
           - City of desired timezone (ie Dublin, Singapore, etc.).
         type: str
-        default: Dublin
+        required: true

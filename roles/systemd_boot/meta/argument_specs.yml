@@ -18,7 +18,7 @@ argument_specs:
           - Default is recommended path by systemd-boot.
         type: path
         default: /efi
-      
+
       auto_update:
         description:
           - Whether to enable auto updating of systemd-boot.
@@ -76,7 +76,7 @@ argument_specs:
           - If disabled firmware can be accessed using the f key.
         type: bool
         default: true
-      
+
       beep:
         description:
           - Whether to use PC speaker to make sound.
@@ -90,7 +90,7 @@ argument_specs:
       secure_boot_enroll:
         description:
           - >-
-            Controls enrollment of secure boot keys found on the ESP 
+            Controls enrollment of secure boot keys found on the ESP
             if the system is in setup mode. See the loader.conf.5
             man page for more detail.
         type: str
