@@ -136,3 +136,5 @@ docs/collections
 
 # Local collection builds
 *.tar.gz
+
+.vscode/settings.json
