@@ -1,0 +1,65 @@
+---
+argument_specs:
+  main:
+    short_description: Configure basic defaults with systemd-networkd
+    description:
+      - Configure basic defaults with systemd-networkd.
+    author:
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      config_wired:
+        description:
+          - Whether to config basic wired networking
+        type: bool
+        default: true
+
+      config_wireless:
+        description:
+          - Whether to config basic wireless networking.
+        type: bool
+        default: false
+
+      wired_adapter_name_match:
+        description:
+          - Name to use to match network config to wired adapter.
+        type: str
+        default: en*
+
+      wireless_adapter_name_match:
+        description:
+          - Name to use to match network config to wireless adapter.
+        type: str
+        default: wl*
+
+      use_dhcp:
+        description:
+          - Whether to use DHCP to set IP, DNS & Gateway.
+          - If set to false ip_addresses, and gateway_ip variables are required.
+        type: str
+        choices:
+          - "yes"
+          - "no"
+          - ipv6
+          - ipv4
+        default: "yes"
+
+      ip_addresses:
+        description:
+          - IP addresses to set the interface to.
+          - Can be set to multiple addresses.
+          - Required when use_dhcp is set to false.
+        type: list
+        elements: str
+
+      gateway_ip:
+        description:
+          - Gateway IP address to use for the matched adapter.
+          - Required when use_dhcp is set to false.
+        type: str
+
+      dns_addresses:
+        description:
+          - DNS server address, must be in the format described in inet_pton(3).
+          - Can be set to multiple addresses.
+        type: list
+        elements: str

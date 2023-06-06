@@ -1,0 +1,17 @@
+[Match]
+Name={{ wired_adapter_name_match }}
+
+[Network]
+{% if use_dhcp == "no" %}
+{% for ip in ip_addresses %}
+Address={{ ip }}
+{% endfor %}
+Gateway={{ gateway_ip }}
+{% else %}
+DHCP={{ use_dhcp }}
+{% endif %}
+{%if dns is defined %}
+{% for dns in dns_addresses %}
+DNS={{ dns }}
+{% endfor %}
+{% endif %}
