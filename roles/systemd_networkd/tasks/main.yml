@@ -19,10 +19,13 @@
   when: config_wireless
   notify: Restart systemd-networkd
 
-- name: Enable systemd-networkd & systemd-resolved
+- name: Enable systemd-networkd
   ansible.builtin.service:
-    name: "{{ item }}"
+    name: systemd-networkd
     enabled: true
-  with_items:
-    - systemd-networkd
-    - systemd-resolved
+
+- name: Enable systemd-resolved
+  ansible.builtin.service:
+    name: systemd-resolved
+    enabled: true
+  when: use_systemd_resolved

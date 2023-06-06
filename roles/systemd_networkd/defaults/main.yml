@@ -4,3 +4,4 @@ config_wireless: false
 wired_adapter_name_match: en*
 wireless_adapter_name_match: wl*
 use_dhcp: "yes"
+use_systemd_resolved: true

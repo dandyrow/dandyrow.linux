@@ -63,3 +63,9 @@ argument_specs:
           - Can be set to multiple addresses.
         type: list
         elements: str
+
+      use_systemd_resolved:
+        description:
+          - Whether to enable systemd_resolved to use for DNS resolution.
+        type: bool
+        default: true
