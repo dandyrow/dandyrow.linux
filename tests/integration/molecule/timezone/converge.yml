@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: dandyrow.linux.timezone
+      vars:
+        region: Europe
+        city: Dublin

@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+default {{ default_entry }}
+{% if loader_timeout is defined %}
+timeout {{ loader_timeout }}
+{% endif %}
+{% if console_mode is defined %}
+console-mode {{ console_mode }}
+{% endif %}
+{% if editor is defined %}
+editor {{ "yes" if editor else "no" }}
+{% endif %}
+{% if auto_entries is defined %}
+auto-entries {{ "yes" if auto_entries else "no" }}
+{% endif %}
+{% if auto_firmware is defined %}
+auto-firmware {{ "yes" if auto_firmware else "no" }}
+{% endif %}
+{% if beep is defined %}
+beep {{ "yes" if beep else "no" }}
+{% endif %}
+{% if secure_boot_enroll is defined %}
+secure-boot-enroll {{ secure_boot_enroll }}
+{% endif %}
+{% if reboot_for_bitlocker is defined %}
+reboot-for-bitlocker {{ "yes" if reboot_for_bitlocker else "no" }}
+{% endif %}

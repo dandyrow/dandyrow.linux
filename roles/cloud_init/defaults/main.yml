@@ -1,0 +1,4 @@
+---
+create_default_user: true
+disable_root: true
+preserve_hostname: false

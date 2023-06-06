@@ -1,0 +1,111 @@
+---
+argument_specs:
+  main:
+    short_description: Installs and configures systemd-boot
+    description:
+      - Installs and configures systemd-boot.
+      - Assumes no other boot loader is installed.
+      - Use at your own risk.
+      - >-
+        I take no responsiblity for you breaking your bootloader
+        after running this role.
+    author:
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      esp_path:
+        description:
+          - Path to where the EFI system partition (ESP) is mounted.
+          - Default is recommended path by systemd-boot.
+        type: path
+        default: /efi
+
+      auto_update:
+        description:
+          - Whether to enable auto updating of systemd-boot.
+          - Achieves this by enabling systemd-boot-update service.
+        type: bool
+        default: true
+
+      entry_title:
+        description:
+          - Title of the boot entry for system root partition.
+        type: str
+        required: true
+
+      loader_timeout:
+        description:
+          - >-
+            Length of time in seconds which the systemd-boot loader
+            menu appears for until booting the default entry.
+        type: int
+        default: 0
+
+      console_mode:
+        description:
+          - Configures resolution of the console in bootloader.
+        type: str
+        choices:
+          - 0
+          - 1
+          - 2
+          - auto
+          - max
+          - keep
+        default: keep
+
+      editor:
+        description:
+          - Whether to enable the editor for boot loader entries.
+          - >-
+            This should be disabled if the machine can be accessed
+            by unauthorised persons.
+        type: bool
+        default: true
+
+      auto_entries:
+        description:
+          - >-
+            Whether to enable entries for other boot entries
+            found on boot partition.
+        type: bool
+        default: true
+
+      auto_firmware:
+        description:
+          - Whether to enable the "Reboot into firmware" entry.
+          - If disabled firmware can be accessed using the f key.
+        type: bool
+        default: true
+
+      beep:
+        description:
+          - Whether to use PC speaker to make sound.
+          - >-
+            If timeout enabled, beep every second, otherwise beep
+            n times when n-th entry in boot menu is selected.
+          - Only supported on x86 platform where it uses PC speaker.
+        type: bool
+        default: false
+
+      secure_boot_enroll:
+        description:
+          - >-
+            Controls enrollment of secure boot keys found on the ESP
+            if the system is in setup mode. See the loader.conf.5
+            man page for more detail.
+        type: str
+        choices:
+          - "off"
+          - manual
+          - if-safe
+          - force
+        default: "off"
+
+      reboot_for_bitlocker:
+        description:
+          - >-
+            Work around bitlocker requiring a recovery key when the
+            boot loader was updated.
+          - See the loader.conf.5 man page for more detail.
+        type: bool
+        default: false

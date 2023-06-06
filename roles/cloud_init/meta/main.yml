@@ -1,10 +1,10 @@
 ---
 galaxy_info:
-  role_name: stow_dotfiles
+  role_name: cloud_init
   author: Daniel Lowry
   namespace: dandyrow
   description: >-
-    Ansible role to install dotfiles from a specified repo using GNU stow
+    Ansible role to install and configure cloud-init
   license: GPL-3.0-only
   min_ansible_version: "2.12"
 
@@ -22,9 +22,10 @@ galaxy_info:
         - "buster"
 
   galaxy_tags:
-    - shell
     - linux
-    - dotfiles
-    - stow
+    - cloud_init
+    - proxmox
+    - vmware
+    - cloud
 
 dependencies: []

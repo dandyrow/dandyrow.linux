@@ -1,0 +1,19 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Install cloud-init
+  ansible.builtin.package:
+    name: "{{ cloud_init_packages }}"
+    state: present
+
+- name: Enable cloud-init services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: true
+  with_items: "{{ cloud_init_services }}"
+
+- name: Configure cloud-init
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/config.yml"

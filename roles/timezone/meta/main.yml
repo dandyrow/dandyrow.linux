@@ -1,10 +1,9 @@
 ---
 galaxy_info:
-  role_name: stow_dotfiles
+  role_name: timezone
   author: Daniel Lowry
   namespace: dandyrow
-  description: >-
-    Ansible role to install dotfiles from a specified repo using GNU stow
+  description: Configure system timezone and hardware clock.
   license: GPL-3.0-only
   min_ansible_version: "2.12"
 
@@ -22,9 +21,10 @@ galaxy_info:
         - "buster"
 
   galaxy_tags:
-    - shell
+    - time
     - linux
-    - dotfiles
-    - stow
+    - timezone
+    - localisation
+    - localization
 
 dependencies: []

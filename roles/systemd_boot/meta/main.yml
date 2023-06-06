@@ -1,10 +1,9 @@
 ---
 galaxy_info:
-  role_name: stow_dotfiles
+  role_name: systemd_boot
   author: Daniel Lowry
   namespace: dandyrow
-  description: >-
-    Ansible role to install dotfiles from a specified repo using GNU stow
+  description: Installs and configures systemd-boot
   license: GPL-3.0-only
   min_ansible_version: "2.12"
 
@@ -12,14 +11,6 @@ galaxy_info:
     - name: ArchLinux
       versions:
         - all
-    - name: Ubuntu
-      versions:
-        - "jammy"
-        - "focal"
-    - name: Debian
-      version:
-        - "bullseye"
-        - "buster"
 
   galaxy_tags:
     - shell

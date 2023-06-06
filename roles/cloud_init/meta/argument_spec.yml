@@ -1,0 +1,37 @@
+---
+argument_specs:
+  main:
+    short_description: Install and configure cloud-init
+    description:
+      - Install and configure cloud-init.
+    author:
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      create_default_user:
+        description:
+          - >-
+            Controls whether cloud-init is set to create a
+            distro default user during initialization.
+        type: bool
+        default: true
+
+      disable_root:
+        description:
+          - Controls whether to disable ssh login to the root user.
+        type: bool
+        default: true
+
+      preserve_hostname:
+        description:
+          - >-
+            Controls whether to keep the hostname of the
+            host or allow cloud-init config to change it.
+        type: bool
+        default: false
+
+      datasource_list:
+        description:
+          - List of datasources for cloud-init to query.
+          - >-
+            "List of datasources can be found here:
+            https://cloudinit.readthedocs.io/en/latest/reference/datasources.html"

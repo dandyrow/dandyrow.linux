@@ -1,0 +1,31 @@
+---
+- name: Copy basic wired network config
+  ansible.builtin.copy:
+    src: "{{ role_path }}/templates/20-wired.j2"
+    dest: /etc/systemd/network/20-wired.network
+    owner: root
+    group: root
+    mode: '0644'
+  when: config_wired
+  notify: Restart systemd-networkd
+
+- name: Copy basic wireless network config
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/25-wireless.j2"
+    dest: /etc/systemd/network/25-wireless.network
+    owner: root
+    group: root
+    mode: '0644'
+  when: config_wireless
+  notify: Restart systemd-networkd
+
+- name: Enable systemd-networkd
+  ansible.builtin.service:
+    name: systemd-networkd
+    enabled: true
+
+- name: Enable systemd-resolved
+  ansible.builtin.service:
+    name: systemd-resolved
+    enabled: true
+  when: use_systemd_resolved

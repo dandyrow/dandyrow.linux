@@ -1,0 +1,8 @@
+---
+cloud_init_packages:
+  - cloud-init
+  - cloud-guest-utils
+cloud_init_services:
+  - cloud-init
+  - cloud-final
+cloud_init_config: /etc/cloud/cloud.cfg
