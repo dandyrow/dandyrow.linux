@@ -1,3 +1,4 @@
 ---
 esp_path: /efi
+auto_update: true
 default_entry: "{{ entry_title }}.conf"

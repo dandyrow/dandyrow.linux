@@ -52,12 +52,16 @@
     mode: "0755"
 
 - name: Get root partition
-  command: "mount | grep 'on / ' | awk '{ print $1 }'"
+  ansible.builtin.shell: |
+    set -e -o pipefail
+    mount | grep 'on / ' | awk '{ print $1 }'
   register: root_partition
+  changed_when: false
 
 - name: Get root partition UUID
-  command: lsblk -no UUID {{ root_partition.stdout }}
+  ansible.builtin.command: lsblk -no UUID {{ root_partition.stdout }}
   register: root_partition_uuid
+  changed_when: false
 
 - name: Copy loader entry to entries directory
   ansible.builtin.template:
