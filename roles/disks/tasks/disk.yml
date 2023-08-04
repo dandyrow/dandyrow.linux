@@ -1,0 +1,33 @@
+---
+- name: Partition device
+  when: item.part_number is defined
+  loop: "{{ disk.layout }}"
+  community.general.parted:
+    device: "{{ disk.dev_path }}"
+    number: "{{ item.part_number }}"
+    align: "{{ item.part_align | default(part_align) }}"
+    flags: "{{ item.part_flags | default(omit) }}"
+    fs_type: "{{ item.part_fs_type | default(omit) }}"
+    label: "{{ item.part_label | default(part_label) }}"
+    name: "{{ item.part_name | default(omit) }}"
+    part_end: "{{ item.part_end | default(part_end) }}"
+    part_start: "{{ item.part_start | default(part_start) }}"
+    part_type: "{{ item.part_type | default(part_type)\
+      if item.part_label == 'msdos' or item.part_label == 'dvh' else omit }}"
+    unit: "{{ item.part_unit | default(part_unit) }}"
+    state: present
+
+- name: Format device
+  loop: "{{ disk.layout }}"
+  community.general.filesystem:
+    device: "{{ disk.dev_path }}\
+      {{ 'p' if 'nvme' in disk.dev_path and item.part_number is defined }}\
+      {{ item.part_number | default('') }}"
+    fstype: "{{ item.fs_type }}"
+    opts: "{{ item.fs_options | default(omit) }}"
+    force: "{{ item.force_format | default(force_format) }}"
+    state: present
+
+- name: Mount device
+  loop: "{{ disk.layout }}"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/mount.yml"

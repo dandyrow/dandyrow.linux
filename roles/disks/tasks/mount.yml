@@ -1,0 +1,45 @@
+---
+- name: Get devices mounted in subdirectories of target mount path
+  changed_when: false
+  register: mounted_subdirs
+  ansible.builtin.shell: >
+    mount | grep -E " on {{ item.mount_path }}/.+ type " |
+    awk '{print $1, $3, $5}'
+
+- name: Unmount device(s) mounted in subdirectories
+  loop: "{{ mounted_subdirs.stdout_lines }}"
+  loop_control:
+    loop_var: subdir
+  when: item.mount_path not in ansible_mounts | map(attribute='mount') | list
+  ansible.posix.mount:
+    path: "{{ subdir.split(' ')[1] }}"
+    state: unmounted
+
+- name: Mount device
+  when: not item.mount_uuid | default(mount_uuid)
+  ansible.posix.mount:
+    src: "{{ disk.dev_path }}\
+      {{ 'p' if 'nvme' in disk.dev_path and item.part_number is defined }}\
+      {{ item.part_number | default('') }}"
+    path: "{{ item.mount_path }}"
+    fstype: "{{ item.fs_type }}"
+    opts: "{{ item.mount_options | default(omit) }}"
+    boot: "{{ item.mount_boot | default(mount_boot) }}"
+    dump: "{{ item.mount_dump | default(mount_dump) }}"
+    passno: "{{ item.mount_passno | default(mount_passno) }}"
+    state: "{{ 'present' if item.fs_type == 'swap' else 'mounted' }}"
+
+- name: Mount device by uuid
+  when: item.mount_uuid | default(mount_uuid)
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/mount_uuid.yml"
+
+- name: Re-mount previously mounted devices to their respective subdirectories
+  loop: "{{ mounted_subdirs.stdout_lines }}"
+  loop_control:
+    loop_var: subdir
+  when: item.mount_path not in ansible_mounts | map(attribute='mount') | list
+  ansible.posix.mount:
+    src: "{{ subdir.split(' ')[0] }}"
+    path: "{{ subdir.split(' ')[1] }}"
+    fstype: "{{ subdir.split(' ')[2] }}"
+    state: ephemeral

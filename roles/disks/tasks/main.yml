@@ -1,0 +1,6 @@
+---
+- name: Run tasks on each disk
+  loop: "{{ disks }}"
+  loop_control:
+    loop_var: disk
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/disk.yml"

@@ -1,0 +1,29 @@
+---
+galaxy_info:
+  author: Daniel Lowry
+  description: Declare disk setup as code
+  license: GPL-3.0-only
+  min_ansible_version: 2.12
+
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - "jammy"
+        - "focal"
+    - name: Debian
+      version:
+        - "bullseye"
+        - "buster"
+
+  galaxy_tags:
+    - disks
+    - filesystem
+    - linux
+    - partitions
+    - parted
+    - mount
+
+dependencies: []
