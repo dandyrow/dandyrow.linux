@@ -1,0 +1,18 @@
+---
+- name: Get UUID of device
+  ansible.builtin.command: "blkid -s UUID -o value {{ disk.dev_path }}\
+    {{ 'p' if 'nvme' in disk.dev_path and item.part_number is defined }}\
+    {{ item.part_number | default(omit) }}"
+  register: uuid
+  changed_when: false
+
+- name: Mount device by UUID
+  ansible.posix.mount:
+    src: UUID={{ uuid.stdout }}
+    path: "{{ item.mount_path }}"
+    fstype: "{{ item.fs_type }}"
+    opts: "{{ item.mount_options | default(omit) }}"
+    boot: "{{ item.mount_boot | default(mount_boot) }}"
+    dump: "{{ item.mount_dump | default(mount_dump) }}"
+    passno: "{{ item.mount_passno | default(mount_passno) }}"
+    state: "{{ 'present' if item.fs_type == 'swap' else 'mounted' }}"

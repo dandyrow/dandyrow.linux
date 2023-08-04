@@ -1,0 +1,19 @@
+---
+resize: false
+
+# Parted defaults
+part_align: optimal
+part_label: msdos
+part_end: 100%
+part_start: 0%
+part_type: primary
+part_unit: KiB
+
+# Filesystem defaults
+force_format: false
+
+# Mount defaults
+mount_boot: true
+mount_uuid: false
+mount_dump: "0"
+mount_passno: "0"

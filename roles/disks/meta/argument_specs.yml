@@ -1,0 +1,220 @@
+---
+argument_specs:
+  main:
+    short_description: Declare disk setup as code
+    description:
+      - >-
+        Define disk layout as yaml to create partitions then format and mount
+        them.
+      - Disks can also be formatted and mounted without creating partitions.
+      - >-
+        Make sure if not partitoning disks don't define part_number and only
+        define one layout item.
+      - If defining partitons make sure to include part_number for each list
+        item or you may experience unexpected behaviour.
+    author:
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      disks:
+        description:
+          - List of disks to partition and / or format and mount.
+        type: list
+        elements: dict
+        required: true
+        options:
+          dev_path:
+            description:
+              - Target path to block device to operate on.
+            type: path
+            required: true
+
+          layout:
+            description:
+              - Target layout of the specified disk.
+              - >-
+                To format and mount device without partitions leave part_number
+                undefined.
+              - >-
+                Other part_ options which are defined will be ignored when
+                part_number is not defined.
+              - >-
+                If multiple list items are specified without a part_number
+                defined only the last item will end up applied.
+            type: list
+            elements: dict
+            required: true
+            options:
+              part_number:
+                description:
+                  - Number of the partition being affected.
+                  - Required when specifying partitions.
+                type: int
+
+              part_align:
+                description:
+                  - Set alignment for newly created partitions.
+                  - Use undefined for parted default alignment.
+                type: str
+                default: optimal
+                choices:
+                  - cylinder
+                  - minimal
+                  - none
+                  - optimal
+                  - undefined
+
+              part_flags:
+                description:
+                  - List of flags to be set on the partition.
+                type: list
+                elements: str
+
+              part_fs_type:
+                description:
+                  - Sets the filesystem type of the partition.
+                  - Unlike fs_type, this is not required.
+                type: str
+
+              part_label:
+                description:
+                  - Disk label type or partition table to use.
+                  - >-
+                    If device already contains a different label, it will be
+                    changed to label and any previous partitons will be lost.
+                    Therefore, USE AT YOUR OWN RISK! You have been warned.
+                  - Name must be specified for a gpt partition table.
+                type: str
+                default: msdos
+                choices:
+                  - six
+                  - amiga
+                  - bsd
+                  - dvh
+                  - gpt
+                  - loop
+                  - mac
+                  - msdos
+                  - pc98
+                  - sun
+
+              part_name:
+                description:
+                  - Sets name for partition number.
+                  - Only applicable to GPT, Mac, MIPS and PC98.
+                  - Required when part_label set to gpt.
+                type: str
+
+              part_end:
+                description:
+                  - See community.general.parted docs for description.
+                type: str
+                default: 100%
+
+              part_start:
+                description:
+                  - See community.general.parted docs for description.
+                type: str
+                default: 0%
+
+              part_type:
+                description:
+                  - May only be specified with part_label=msdos or part_label=dvh.
+                type: str
+                default: "primary"
+                choices:
+                  - extended
+                  - logical
+                  - primary
+
+              part_unit:
+                description:
+                  - Unit which Parted will use to display capacities on disk.
+                type: str
+                default: KiB
+                choices:
+                  - s
+                  - B
+                  - KB
+                  - KiB
+                  - MB
+                  - MiB
+                  - GB
+                  - GiB
+                  - TB
+                  - TiB
+                  - "%"
+                  - cyl
+                  - chs
+                  - compact
+
+              fs_type:
+                description:
+                  - Desired filesystem type of the device.
+                  - Required when partitions list is not set.
+                  - See community.general.filesystem for supported filesystems.
+                type: str
+                required: true
+
+              fs_options:
+                description:
+                  - Options string to pass to mkfs during device formatting.
+                type: str
+
+              force_format:
+                description:
+                  - >-
+                    If true, allows creation of filesystem on device already
+                    containing one.
+                type: bool
+                default: false
+
+              mount_path:
+                description:
+                  - Target path to mount formatted device to.
+                  - Parent directories will be created if they don't already exist
+                  - Required if partitions list is not set.
+                type: path
+                required: true
+
+              mount_options:
+                description:
+                  - Options to use when mounting.
+                  - Stored in fstab entry for the mount.
+                  - See fstab(5) for applicable options.
+                type: str
+
+              mount_boot:
+                description:
+                  - If true, will set the device to moount on system boot.
+                  - If false, it will store option noauto in fstab.
+                  - If noauto is specified in mount_options this will be ignored.
+                type: bool
+                default: true
+
+              mount_uuid:
+                description:
+                  - If true, use device's UUID to mount it rather than dev path.
+                  - >-
+                    Mounting by UUID can be safer in case dev path changes for a
+                    particular disk.
+                type: bool
+                default: false
+
+              mount_dump:
+                description:
+                  - See fstab(5) for details about dump field.
+                type: str
+                default: "0"
+
+              mount_passno:
+                description:
+                  - See fstab(5) for details about passno field.
+                type: str
+                default: "0"
+
+              resize:
+                description:
+                  - Resize existing partitions to match size specified by part_end.
+                  - And / or resize filesystem to fill device size.
+                type: bool
+                default: false
