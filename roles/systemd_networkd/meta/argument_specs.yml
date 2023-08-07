@@ -9,13 +9,13 @@ argument_specs:
     options:
       config_wired:
         description:
-          - Whether to config basic wired networking
+          - If true, will configure wired networking.
         type: bool
         default: true
 
       config_wireless:
         description:
-          - Whether to config basic wireless networking.
+          - If true, will configure wireless networking.
         type: bool
         default: false
 
@@ -33,8 +33,8 @@ argument_specs:
 
       use_dhcp:
         description:
-          - Whether to use DHCP to set IP, DNS & Gateway.
-          - If set to false ip_addresses, and gateway_ip variables are required.
+          - If true, will use DHCP to set IP, DNS & Gateway.
+          - If false, ip_addresses and gateway_ip parameters are required.
         type: str
         choices:
           - "yes"
@@ -66,6 +66,6 @@ argument_specs:
 
       use_systemd_resolved:
         description:
-          - Whether to enable systemd_resolved to use for DNS resolution.
+          - If true, will enable systemd_resolved to use for DNS resolution.
         type: bool
         default: true

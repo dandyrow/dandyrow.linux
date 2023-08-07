@@ -12,8 +12,7 @@ argument_specs:
           - Desired locale to be set.
           - Locales are in the format language[_territory][.codeset][@modifier].
           - For example, American English would be en_US.UTF-8 UTF-8
-          - >-
-            "More information can be found at
+          - "More information can be found at \
             https://wiki.archlinux.org/title/Locale"
         type: str
         required: true
@@ -21,9 +20,8 @@ argument_specs:
       lang:
         description:
           - Desired language to set the system to.
-          - >-
-            Using the same example as locale, this would be set to
-            en_US.UTF-8 from the first column of locale for American English.
+          - "Using the same example as locale, this would be set to \
+            en_US.UTF-8 from the first column of locale for American English."
         type: str
         required: true
 
