@@ -1,0 +1,23 @@
+---
+argument_specs:
+  main:
+    short_description: "Install ZSH and configure some related system-wide \
+      options."
+    desciption:
+      - Install ZSH and configure some related system-wide options.
+    author: Daniel Lowry (github.com/dandyrow)
+    options:
+      default_shell:
+        desciption:
+          - If true, sets ZSH as the default shell for newly created users.
+        type: bool
+        default: false
+
+      xdg_directory:
+        desciption:
+          - "If true, sets the ZDOTDIR to $HOME/.config/zsh \
+            (aka XDG_CONFIG_HOME) in /etc/zsh/zshenv."
+          - This will change the ZDOTDIR for all users to XDG_CONFIG_HOME.
+          - ZDOTDIR is where ZSH looks for it's .zshrc & .zprofile config files.
+        type: bool
+        default: false

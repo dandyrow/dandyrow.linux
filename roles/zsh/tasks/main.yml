@@ -1,0 +1,29 @@
+---
+- name: Ensure zsh package is installed
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
+- name: Change default shell for new users to zsh
+  ansible.builtin.lineinfile:
+    path: /etc/default/useradd
+    regexp: ^SHELL=
+    line: SHELL=/bin/zsh
+    create: true
+    owner: root
+    group: root
+    mode: "0600"
+    state: present
+  when: default_shell
+
+- name: Set ZDOTDIR to XDG_CONFIG_HOME in /etc/zsh/zshenv
+  ansible.builtin.lineinfile:
+    path: /etc/default/useradd
+    regexp: ^export ZDOTDIR=
+    line: export ZDOTDIR="$HOME/.config/zsh"
+    create: true
+    owner: root
+    group: root
+    mode: "0644"
+    state: present
+  when: xdg_directory
