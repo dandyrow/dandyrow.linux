@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: dandyrow.linux.zsh
+      vars:
+        default_shell: true
+        xdg_directory: true

@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: Daniel Lowry
+  description: Install ZSH and configure some related system-wide options.
+  license: GPL-3.0-only
+  min_ansible_version: 2.12
+
+  platforms:
+    - name: Archlinux
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - 22.04
+        - 20.04
+    - name: Debian
+      versions:
+        - 10
+        - 11
+
+  galaxy_tags: []
+
+dependencies: []

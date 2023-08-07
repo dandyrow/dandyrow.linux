@@ -1,0 +1,34 @@
+---
+- name: Update apt cache on Debian based systems
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure zsh package is installed
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
+- name: Change default shell for new users to zsh
+  ansible.builtin.lineinfile:
+    path: /etc/default/useradd
+    regexp: ^SHELL=
+    line: SHELL=/bin/zsh
+    create: true
+    owner: root
+    group: root
+    mode: "0600"
+    state: present
+  when: default_shell
+
+- name: Set ZDOTDIR to XDG_CONFIG_HOME in /etc/zsh/zshenv
+  ansible.builtin.lineinfile:
+    path: /etc/zsh/zshenv
+    regexp: ^export ZDOTDIR=
+    line: export ZDOTDIR="$HOME/.config/zsh"
+    create: true
+    owner: root
+    group: root
+    mode: "0644"
+    state: present
+  when: xdg_directory
