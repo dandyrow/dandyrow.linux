@@ -1,6 +1,6 @@
 ---
 - name: Copy basic wired network config
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "{{ role_path }}/templates/20-wired.j2"
     dest: /etc/systemd/network/20-wired.network
     owner: root
