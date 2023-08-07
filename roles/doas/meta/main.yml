@@ -15,11 +15,9 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - "jammy"
-        - "focal"
     - name: Debian
       version:
         - "bullseye"
-        - "buster"
 
   galaxy_tags:
     - linux
