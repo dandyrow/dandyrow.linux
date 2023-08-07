@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: doas
+      vars:
+        doas_conf_lines:
+          - permit :wheel

@@ -1,0 +1,57 @@
+---
+argument_specs:
+  main:
+    short_description: Installs opendoas and removes sudo
+    description:
+      - Installs opendoas and removes sudo
+    author:
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      doas_conf_lines:
+        description:
+          - List of lines to insert into doas config file.
+          - "The role will run the config through doas -C to check syntax is \
+            correct."
+          - See doas.conf(5) man page for instructions to configure doas.
+        type: list
+        elements: str
+        required: true
+
+      non_root_user:
+        description:
+          - "User that isn't root to run makepkg when installing \
+            doas_sudo_shim on Arch Linux."
+          - Required when install_sudo_shim=true and running on Arch Linux.
+          - "Parameter is ignored when running on non Arch Linux system or \
+            when install_sudo_shim=false."
+
+      remove_sudo:
+        description:
+          - If true, will remove sudo once doas is installed.
+        type: bool
+        default: false
+
+      force_remove_sudo:
+        description:
+          - "If true, bypasses package manager safeguards preventing sudo \
+            being uninstalled due to packages depending on it"
+          - Setting this to true is not recommended. Do at your own risk!
+        type: bool
+        default: false
+
+      remove_sudo_config:
+        description:
+          - If true, will remove sudo's config files after installing doas.
+          - If remove_sudo=false this parameter is ignored.
+        type: bool
+        default: false
+
+      install_sudo_shim:
+        description:
+          - If true, will install doas_sudo_shim from the AUR on Arch Linux.
+          - "doas_sudo_shim is used to map sudo calls to doas. Note that doas \
+            doesn't implement all the features of sudo so certain calls to \
+            sudo will still fail."
+          - This parameter is ignored when not targeting Arch Linux hosts.
+        type: bool
+        default: false

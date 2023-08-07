@@ -2,7 +2,7 @@
 ---
 namespace: dandyrow
 name: linux
-version: 2.2.0
+version: 2.3.0
 readme: README.md
 authors:
   - Daniel Lowry (github.com/dandyrow)

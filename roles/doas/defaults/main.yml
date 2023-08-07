@@ -1,0 +1,5 @@
+---
+remove_sudo: false
+force_remove_sudo: false
+remove_sudo_config: false
+install_doas_sudo_shim: false

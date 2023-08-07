@@ -1,0 +1,3 @@
+---
+doas_package: opendoas
+sudo_package: sudo

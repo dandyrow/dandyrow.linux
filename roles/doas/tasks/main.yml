@@ -1,0 +1,30 @@
+---
+- name: Include distro specific variables
+  ansible.builtin.include_vars: "{{ role_path }}/vars/{{ ansible_os_family }}.yml"
+
+- name: Update apt cache on Debian based hosts
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure doas package is installed
+  ansible.builtin.package:
+    name: "{{ doas_package }}"
+    state: present
+
+- name: Create doas config file
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/doas.j2"
+    dest: /etc/doas.conf
+    owner: root
+    group: root
+    mode: '0400'
+    validate: doas -C %s
+
+- name: Remove sudo from host
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/{{ ansible_os_family }}-remove-sudo.yml"
+  when: remove_sudo
+
+- name: Remove sudo config
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/remove-sudo-config.yml"
+  when: remove_sudo and remove_sudo_config
