@@ -58,15 +58,9 @@
   register: root_partition
   changed_when: false
 
-- name: Get root partition UUID
-  ansible.builtin.command: lsblk -no UUID {{ root_partition.stdout }}
-  register: root_partition_uuid
-  changed_when: false
-
 - name: Get root partition UUID using blkid as lsblk didn't work
   ansible.builtin.command: blkid -s UUID -o value {{ root_partition.stdout }}
   register: root_partition_uuid
-  when: root_partition_uuid.stdout == ""
 
 - name: Copy loader entry to entries directory
   ansible.builtin.template:

@@ -17,15 +17,7 @@
     regexp: "^   - default$"
     insertafter: "^users:$"
     line: "   - default"
-    state: present
-  when: create_default_user
-
-- name: Disable default user creation
-  ansible.builtin.lineinfile:
-    path: "{{ cloud_init_config }}"
-    regexp: "^   - default$"
-    state: absent
-  when: not create_default_user
+    state: "{{ 'present' if create_default_user else 'absent' }}"
 
 - name: Configure datasources
   ansible.builtin.lineinfile:
