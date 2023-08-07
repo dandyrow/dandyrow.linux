@@ -13,5 +13,6 @@
     state: absent
 
 - name: Build & install doas-sudo-shim
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/Archlinux-doas-sudo-shim.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/\
+    Archlinux-doas-sudo-shim.yml"
   when: install_doas_sudo_shim

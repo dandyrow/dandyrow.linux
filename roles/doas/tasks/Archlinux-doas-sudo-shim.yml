@@ -39,7 +39,8 @@
       makepkg -s --noconfirm
       makepkg --packagelist
   register: command_output
-  changed_when: "'ERROR: A package has already been built' not in command_output.stderr"
+  changed_when: "'ERROR: A package has already been built' \
+    not in command_output.stderr"
   failed_when: "command_output.rc != 0 and command_output.rc != 13"
 
 - name: Ensure doas-sudo-shim is installed

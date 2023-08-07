@@ -1,6 +1,7 @@
 ---
 - name: Include distro specific variables
-  ansible.builtin.include_vars: "{{ role_path }}/vars/{{ ansible_os_family }}.yml"
+  ansible.builtin.include_vars: "{{ role_path }}/vars/\
+    {{ ansible_os_family }}.yml"
 
 - name: Update apt cache on Debian based hosts
   ansible.builtin.apt:
@@ -22,7 +23,8 @@
     validate: doas -C %s
 
 - name: Remove sudo from host
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/{{ ansible_os_family }}-remove-sudo.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/\
+    {{ ansible_os_family }}-remove-sudo.yml"
   when: remove_sudo
 
 - name: Remove sudo config

@@ -1,6 +1,6 @@
 ---
 makepkg_conf: /etc/makepkg.conf
-makepkg_build_dependencies: 
+makepkg_build_dependencies:
   - git
   - make
   - binutils
