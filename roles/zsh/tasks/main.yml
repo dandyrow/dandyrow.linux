@@ -1,4 +1,9 @@
 ---
+- name: Update apt cache on Debian based systems
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
 - name: Ensure zsh package is installed
   ansible.builtin.package:
     name: zsh
@@ -18,7 +23,7 @@
 
 - name: Set ZDOTDIR to XDG_CONFIG_HOME in /etc/zsh/zshenv
   ansible.builtin.lineinfile:
-    path: /etc/default/useradd
+    path: /etc/zsh/zshenv
     regexp: ^export ZDOTDIR=
     line: export ZDOTDIR="$HOME/.config/zsh"
     create: true
