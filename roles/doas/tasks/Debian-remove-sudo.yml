@@ -1,0 +1,7 @@
+---
+- name: Ensure sudo is purged from host
+  ansible.builtin.apt:
+    name: "{{ sudo_package }}"
+    state: absent
+  environment:
+    SUDO_FORCE_REMOVE: "{{ 'yes' if force_remove_sudo else omit }}"

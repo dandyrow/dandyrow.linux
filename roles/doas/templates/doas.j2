@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+{% for conf_line in doas_conf_lines %}
+{{ conf_line }}
+{% endfor %}
+
+{% if ansible_distribution == "Archlinux" and install_doas_sudo_shim %}
+# Allow the `{{ non_root_user }}` user to run `doas pacman` without a password
+permit nopass keepenv {{ non_root_user }} as root cmd /usr/bin/pacman
+{% endif %}

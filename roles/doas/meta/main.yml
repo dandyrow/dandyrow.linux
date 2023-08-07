@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  role_name: doas
+  author: Daniel Lowry
+  namespace: dandyrow
+  description: Installs opendoas and optionally removes sudo
+  license: GPL-3.0-only
+
+  min_ansible_version: "2.1"
+
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - "jammy"
+    - name: Debian
+      version:
+        - "bullseye"
+
+  galaxy_tags:
+    - linux
+    - security
+    - arch
+
+dependencies: []

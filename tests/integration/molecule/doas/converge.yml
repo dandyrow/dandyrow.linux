@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+
+  pre_tasks:
+    - name: Cancel run if on Ubuntu 20.04 or Debian 10
+      ansible.builtin.meta: end_play
+      when: ansible_distribution == "Ubuntu" and
+            ansible_distribution_version == "20.04" or
+            ansible_distribution == "Debian" and
+            ansible_distribution_major_version == "10"
+
+  roles:
+    - role: doas
+      vars:
+        doas_conf_lines:
+          - permit :wheel

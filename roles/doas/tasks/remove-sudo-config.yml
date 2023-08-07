@@ -1,0 +1,15 @@
+---
+- name: Ensure sudo.conf file has been deleted
+  ansible.builtin.file:
+    path: /etc/sudo.conf
+    state: absent
+
+- name: Ensure sudoers file has been deleted
+  ansible.builtin.file:
+    path: /etc/sudoers
+    state: absent
+
+- name: Ensure sudoers.d directory has been deleted
+  ansible.builtin.file:
+    path: /etc/sudoers.d
+    state: absent

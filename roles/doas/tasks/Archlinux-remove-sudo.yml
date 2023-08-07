@@ -1,0 +1,18 @@
+---
+- name: Ensure makepkg uses doas instead of sudo
+  ansible.builtin.lineinfile:
+    path: "{{ makepkg_conf }}"
+    regexp: ^#PACMAN_AUTH=()
+    line: PACMAN_AUTH=doas
+
+- name: Remove sudo
+  community.general.pacman:
+    name: "{{ sudo_package }}"
+    force: "{{ force_remove_sudo }}"
+    remove_nosave: "{{ remove_sudo_config }}"
+    state: absent
+
+- name: Build & install doas-sudo-shim
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/\
+    Archlinux-doas-sudo-shim.yml"
+  when: install_doas_sudo_shim

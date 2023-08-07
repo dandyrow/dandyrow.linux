@@ -1,0 +1,49 @@
+---
+- name: Ensure non root AUR user exists
+  ansible.builtin.user:
+    name: "{{ non_root_user }}"
+    state: present
+
+- name: Ensure pacman path is set in makepkg config
+  ansible.builtin.lineinfile:
+    path: "{{ makepkg_conf }}"
+    regexp: ^PACMAN=
+    line: PACMAN=/usr/bin/pacman
+
+- name: Ensure system is up to date
+  community.general.pacman:
+    update_cache: true
+    upgrade: true
+
+- name: Ensure build dependencies are installed
+  community.general.pacman:
+    name: "{{ makepkg_build_dependencies }}"
+    state: present
+
+- name: Ensure doas-sudo-shim PKKGBUILD is cloned from AUR
+  become: true
+  become_method: doas
+  become_user: "{{ non_root_user }}"
+  ansible.builtin.git:
+    repo: https://aur.archlinux.org/doas-sudo-shim.git
+    dest: /tmp/doas-sudo-shim
+    version: master
+
+- name: Build doas-sudo-shim package
+  become: true
+  become_method: doas
+  become_user: "{{ non_root_user }}"
+  ansible.builtin.shell:
+    chdir: /tmp/doas-sudo-shim
+    cmd: |
+      makepkg -s --noconfirm
+      makepkg --packagelist
+  register: command_output
+  changed_when: "'ERROR: A package has already been built' \
+    not in command_output.stderr"
+  failed_when: "command_output.rc != 0 and command_output.rc != 13"
+
+- name: Ensure doas-sudo-shim is installed
+  community.general.pacman:
+    name: "{{ command_output.stdout_lines[-1] }}"
+    state: present
