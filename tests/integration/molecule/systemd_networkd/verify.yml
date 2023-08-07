@@ -1,0 +1,20 @@
+---
+- name: Verify wired config transferred correctly
+  hosts: all
+  tasks:
+    - name: Read expected file
+      ansible.builtin.slurp:
+        src: ./20-wired.network
+      register: expected
+      delegate_to: localhost
+
+    - name: Read actual file
+      ansible.builtin.slurp:
+        src: /etc/systemd/network/20-wired.network
+      register: actual
+
+    - name: Compare file content
+      ansible.builtin.assert:
+        that: expected.content == actual.content
+        success_msg: Expected and actual wired config files match.
+        fail_msg: Expected and actual wired config files don't match.
