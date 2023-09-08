@@ -1,0 +1,26 @@
+---
+argument_specs:
+  main:
+    short_description: Create & setup swapfile
+    description:
+      - Create and setup swapfile.
+    author:
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      swapfile_size:
+        description:
+          - Desired size of swapfile in GiB.
+        type: int
+        required: true
+
+      swapfile_path:
+        description:
+          - Path to location of the swapfile.
+        type: str
+        default: /swapfile
+
+      swapfile_on:
+        description:
+          - If true, will activate the swapfile with swapon command.
+        type: bool
+        default: true
