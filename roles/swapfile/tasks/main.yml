@@ -1,0 +1,31 @@
+---
+- name: Create a swapfile
+  ansible.builtin.command:
+    cmd: dd if=/dev/zero of={{ swapfile_path }} bs=1M count={{ swapfile_size }}k
+    creates: "{{ swapfile_path }}"
+
+- name: Set permissions on swapfile
+  ansible.builtin.file:
+    path: "{{ swapfile_path }}"
+    mode: '0600'
+
+- name: Format swapfile
+  community.general.filesystem:
+    dev: "{{ swapfile_path }}"
+    fstype: swap
+    uuid: clear
+
+- name: Activate swap
+  ansible.builtin.command:
+    cmd: swapon {{ swapfile_path }}
+  when: swapfile_on
+
+- name: Add swapfile to fstab
+  ansible.posix.mount:
+    path: none
+    src: "{{ swapfile_path }}"
+    fstype: swap
+    opts: defaults
+    passno: 0
+    dump: 0
+    state: present

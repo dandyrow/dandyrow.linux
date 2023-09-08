@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: dandyrow.linux.swapfile
+      vars:
+        swapfile_size: 1
+        swapfile_on: false
