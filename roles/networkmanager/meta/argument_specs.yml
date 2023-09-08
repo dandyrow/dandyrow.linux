@@ -1,0 +1,16 @@
+---
+argument_specs:
+  main:
+    short_description: Install and enable NetworkManager
+    description:
+      - Install and enable NetworkManager.
+    author:
+      - Daniel Lowry (github.com/dandyrow)
+    options:
+      start:
+        description:
+          - If true, will start the networkmanager daemon.
+          - "WARNING make sure to disable any other network daemons before
+            starting networkmanager!"
+        type: bool
+        default: false

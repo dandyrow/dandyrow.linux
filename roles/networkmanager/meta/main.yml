@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  role_name: networkmanager
+  author: Daniel Lowry
+  namespace: dandyrow
+  description: Install and enable NetworkManager
+  license: GPL-3.0-only
+  min_ansible_version: "2.12"
+
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - "jammy"
+        - "focal"
+    - name: Debian
+      version:
+        - "bullseye"
+        - "buster"
+
+  galaxy_tags:
+    - networking
+    - linux
+
+dependencies: []
