@@ -13,7 +13,6 @@
   community.general.filesystem:
     dev: "{{ swapfile_path }}"
     fstype: swap
-    uuid: clear
 
 - name: Activate swap
   ansible.builtin.command:
