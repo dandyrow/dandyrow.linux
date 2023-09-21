@@ -20,7 +20,6 @@
 - name: Install systemd-boot
   ansible.builtin.command:
     cmd: bootctl --esp-path={{ esp_path }} install
-    creates: "{{ esp_path }}/EFI/systemd/systemd-bootx64.efi"
 
 - name: Enable auto updating of systemd boot
   ansible.builtin.service:
