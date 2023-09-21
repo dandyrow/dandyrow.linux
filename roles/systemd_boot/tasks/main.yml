@@ -4,22 +4,22 @@
     path: /sys/firmware/efi/efivars
   register: efivars_directory
 
-- name: Fail if efi directory doesn't exist
+- name: Fail if not booted in UEFI mode
   ansible.builtin.fail:
     msg: System isn't booted into UEFI mode
   when: not efivars_directory.stat.exists
 
-- name: Ensure the ESP exists
-  ansible.builtin.file:
-    path: "{{ esp_path }}"
-    owner: root
-    group: root
-    mode: '0755'
-    state: directory
+# - name: Ensure the ESP exists
+#   ansible.builtin.file:
+#     path: "{{ esp_path }}"
+#     owner: root
+#     group: root
+#     mode: '0755'
+#     state: directory
 
 - name: Install systemd-boot
   ansible.builtin.command:
-    cmd: bootctl --esp-path={{ esp_path }} install
+    cmd: bootctl install
 
 - name: Enable auto updating of systemd boot
   ansible.builtin.service:
