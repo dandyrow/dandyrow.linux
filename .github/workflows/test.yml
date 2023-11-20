@@ -91,7 +91,7 @@ jobs:
           - '3.9'
           - '3.10'
         exclude:
-          # Python 2.7 and 3.6 no longer supported with devel prior to 2.16 release
+        # Python 2.7 & 3.6 no longer supported with devel prior to 2.16 release
           - ansible: devel
             python: '2.7'
           - ansible: devel
@@ -140,8 +140,8 @@ jobs:
           - '3.9'
           - '3.10'
         exclude:
-          # Python 2.6 is not supported with ansible-core >= 2.13
-          # Python 2.7 and 3.6 no longer supported with devel prior to 2.16 release
+        # Python 2.6 is not supported with ansible-core >= 2.13
+        # Python 2.7 & 3.6 no longer supported with devel prior to 2.16 release
           - ansible: stable-2.13
             python: '2.6'
           - ansible: stable-2.14
