@@ -4,6 +4,11 @@
     update_cache: true
   when: ansible_os_family == "Debian"
 
+- name: Update pacman cache
+  ansible.builtin.pacman:
+    update_cache: true
+  when: ansible_os_family == "Archlinux"
+
 - name: Ensure required packages are installed
   become: true
   become_user: root
