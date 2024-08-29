@@ -8,4 +8,4 @@
         dotfiles_to_install:
           - zsh
           - starship
-          - neofetch
+          - fastfetch
