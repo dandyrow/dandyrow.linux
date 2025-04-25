@@ -29,7 +29,6 @@
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/\
     {{ ansible_os_family }}-remove-sudo.yml"
   when: remove_sudo
-  become: true
 
 - name: Remove sudo config
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/remove-sudo-config.yml"
