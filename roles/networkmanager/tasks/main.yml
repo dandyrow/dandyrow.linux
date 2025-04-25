@@ -7,14 +7,17 @@
   ansible.builtin.apt:
     update_cache: true
   when: ansible_os_family == "Debian"
+  become: true
 
 - name: Ensure Network Manager is installed
   ansible.builtin.package:
     name:
       - "{{ networkmanager_package }}"
     state: present
+  become: true
 
 - name: Ensure Network Manager is enabled
   ansible.builtin.service:
     name: NetworkManager
     enabled: true
+  become: true

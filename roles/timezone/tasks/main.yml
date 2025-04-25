@@ -5,6 +5,7 @@
     dest: /etc/localtime
     force: true
     state: link
+  become: true
 
 - name: Set the hardware clock to the current system time
   ansible.builtin.command:
@@ -13,3 +14,4 @@
   when: >-
     ansible_virtualization_role is defined and
     ansible_virtualization_role == 'host'
+  become: true

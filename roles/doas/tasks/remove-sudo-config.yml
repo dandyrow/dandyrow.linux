@@ -3,13 +3,16 @@
   ansible.builtin.file:
     path: /etc/sudo.conf
     state: absent
+  become: true
 
 - name: Ensure sudoers file has been deleted
   ansible.builtin.file:
     path: /etc/sudoers
     state: absent
+  become: true
 
 - name: Ensure sudoers.d directory has been deleted
   ansible.builtin.file:
     path: /etc/sudoers.d
     state: absent
+  become: true

@@ -16,3 +16,4 @@
     dump: "{{ item.mount_dump | default(mount_dump) }}"
     passno: "{{ item.mount_passno | default(mount_passno) }}"
     state: "{{ 'present' if item.fs_type == 'swap' else 'mounted' }}"
+  become: true

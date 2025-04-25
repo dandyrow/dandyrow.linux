@@ -3,11 +3,13 @@
   ansible.builtin.apt:
     update_cache: true
   when: ansible_os_family == "Debian"
+  become: true
 
 - name: Ensure zsh package is installed
   ansible.builtin.package:
     name: zsh
     state: present
+  become: true
 
 - name: Change default shell for new users to zsh
   ansible.builtin.lineinfile:
@@ -20,6 +22,7 @@
     mode: "0600"
     state: present
   when: default_shell
+  become: true
 
 - name: Set ZDOTDIR to XDG_CONFIG_HOME in /etc/zsh/zshenv
   ansible.builtin.lineinfile:
@@ -32,3 +35,4 @@
     mode: "0644"
     state: present
   when: xdg_directory
+  become: true

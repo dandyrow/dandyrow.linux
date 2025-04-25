@@ -8,6 +8,7 @@
     mode: '0644'
   when: config_wired
   notify: Restart systemd-networkd
+  become: true
 
 - name: Copy basic wireless network config
   ansible.builtin.template:
@@ -18,14 +19,17 @@
     mode: '0644'
   when: config_wireless
   notify: Restart systemd-networkd
+  become: true
 
 - name: Enable systemd-networkd
   ansible.builtin.service:
     name: systemd-networkd
     enabled: true
+  become: true
 
 - name: Enable systemd-resolved
   ansible.builtin.service:
     name: systemd-resolved
     enabled: true
   when: use_systemd_resolved
+  become: true

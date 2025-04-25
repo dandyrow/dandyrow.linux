@@ -14,6 +14,7 @@
   ansible.posix.mount:
     path: "{{ subdir.split(' ')[1] }}"
     state: unmounted
+  become: true
 
 - name: Mount device
   when: not item.mount_uuid | default(mount_uuid)
@@ -28,6 +29,7 @@
     dump: "{{ item.mount_dump | default(mount_dump) }}"
     passno: "{{ item.mount_passno | default(mount_passno) }}"
     state: "{{ 'present' if item.fs_type == 'swap' else 'mounted' }}"
+  become: true
 
 - name: Mount device by uuid
   when: item.mount_uuid | default(mount_uuid)
@@ -43,3 +45,4 @@
     path: "{{ subdir.split(' ')[1] }}"
     fstype: "{{ subdir.split(' ')[2] }}"
     state: ephemeral
+  become: true

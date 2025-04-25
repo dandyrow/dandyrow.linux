@@ -5,3 +5,4 @@
     state: absent
   environment:
     SUDO_FORCE_REMOVE: "{{ 'yes' if force_remove_sudo else omit }}"
+  become: true

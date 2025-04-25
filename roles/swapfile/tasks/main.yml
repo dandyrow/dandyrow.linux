@@ -3,21 +3,25 @@
   ansible.builtin.command:
     cmd: dd if=/dev/zero of={{ swapfile_path }} bs=1M count={{ swapfile_size }}k
     creates: "{{ swapfile_path }}"
+  become: true
 
 - name: Set permissions on swapfile
   ansible.builtin.file:
     path: "{{ swapfile_path }}"
     mode: '0600'
+  become: true
 
 - name: Format swapfile
   community.general.filesystem:
     dev: "{{ swapfile_path }}"
     fstype: swap
+  become: true
 
 - name: Activate swap
   ansible.builtin.command:
     cmd: swapon {{ swapfile_path }}
   when: swapfile_on
+  become: true
 
 - name: Add swapfile to fstab
   ansible.posix.mount:
@@ -28,3 +32,4 @@
     passno: 0
     dump: 0
     state: present
+  become: true

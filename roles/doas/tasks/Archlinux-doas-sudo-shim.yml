@@ -3,22 +3,26 @@
   ansible.builtin.user:
     name: "{{ non_root_user }}"
     state: present
+  become: true
 
 - name: Ensure pacman path is set in makepkg config
   ansible.builtin.lineinfile:
     path: "{{ makepkg_conf }}"
     regexp: ^PACMAN=
     line: PACMAN=/usr/bin/pacman
+  become: true
 
 - name: Ensure system is up to date
   community.general.pacman:
     update_cache: true
     upgrade: true
+  become: true
 
 - name: Ensure build dependencies are installed
   community.general.pacman:
     name: "{{ makepkg_build_dependencies }}"
     state: present
+  become: true
 
 - name: Ensure doas-sudo-shim PKKGBUILD is cloned from AUR
   become: true
@@ -44,6 +48,9 @@
   failed_when: "command_output.rc != 0 and command_output.rc != 13"
 
 - name: Ensure doas-sudo-shim is installed
+  become: true
+  become_method: doas
+  become_user: "{{ non_root_user }}"
   community.general.pacman:
     name: "{{ command_output.stdout_lines[-1] }}"
     state: present

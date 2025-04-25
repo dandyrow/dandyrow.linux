@@ -4,6 +4,7 @@
     path: "{{ makepkg_conf }}"
     regexp: ^#PACMAN_AUTH=()
     line: PACMAN_AUTH=doas
+  become: true
 
 - name: Remove sudo
   community.general.pacman:
@@ -11,6 +12,7 @@
     force: "{{ force_remove_sudo }}"
     remove_nosave: "{{ remove_sudo_config }}"
     state: absent
+  become: true
 
 - name: Build & install doas-sudo-shim
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/\

@@ -3,11 +3,13 @@
   ansible.builtin.apt:
     update_cache: true
   when: ansible_os_family == "Debian"
+  become: true
 
 - name: Update pacman cache
   ansible.builtin.pacman:
     update_cache: true
   when: ansible_os_family == "Archlinux"
+  become: true
 
 - name: Ensure required packages are installed
   become: true

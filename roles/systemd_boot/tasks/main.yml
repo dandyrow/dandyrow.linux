@@ -16,16 +16,19 @@
     group: root
     mode: '0755'
     state: directory
+  become: true
 
 - name: Install systemd-boot
   ansible.builtin.command:
     cmd: bootctl --esp-path={{ esp_path }} install
     creates: "{{ esp_path }}/EFI/systemd/systemd-bootx64.efi"
+  become: true
 
 - name: Enable auto updating of systemd boot
   ansible.builtin.service:
     name: systemd-boot-update
     enabled: "{{ auto_update }}"
+  become: true
 
 - name: Create loader directory in ESP
   ansible.builtin.file:
@@ -34,6 +37,7 @@
     owner: root
     group: root
     mode: "0755"
+  become: true
 
 - name: Copy loader config to loader directory
   ansible.builtin.template:
@@ -42,6 +46,7 @@
     owner: root
     group: root
     mode: "0755"
+  become: true
 
 - name: Create entries directory in loader directory
   ansible.builtin.file:
@@ -50,6 +55,7 @@
     owner: root
     group: root
     mode: "0755"
+  become: true
 
 - name: Get root partition
   ansible.builtin.shell: |
@@ -69,3 +75,4 @@
     owner: root
     group: root
     mode: "0755"
+  become: true

@@ -5,10 +5,12 @@
     regexp: "^#{{ locale }}"
     line: "{{ locale }}"
   register: locale_update
+  become: true
 
 - name: Generate locales
   ansible.builtin.command: locale-gen
   when: locale_update is changed
+  become: true
 
 - name: Create locale config file
   ansible.builtin.template:
@@ -17,6 +19,7 @@
     owner: root
     group: root
     mode: "0644"
+  become: true
 
 - name: Create vconsole config file
   ansible.builtin.template:
@@ -25,3 +28,4 @@
     owner: root
     group: root
     mode: "0644"
+  become: true

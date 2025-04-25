@@ -16,6 +16,7 @@
       if item.part_label == 'msdos' or item.part_label == 'dvh' else omit }}"
     unit: "{{ item.part_unit | default(part_unit) }}"
     state: present
+  become: true
 
 - name: Format device
   loop: "{{ disk.layout }}"
@@ -27,6 +28,7 @@
     opts: "{{ item.fs_options | default(omit) }}"
     force: "{{ item.force_format | default(force_format) }}"
     state: present
+  become: true
 
 - name: Mount device
   loop: "{{ disk.layout }}"
