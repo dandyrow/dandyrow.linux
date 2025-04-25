@@ -50,7 +50,7 @@ jobs:
         run: ansible-galaxy collection build
 
       - name: Upload collection build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: collection_tarball
           path: "ansible_collections/dandyrow/linux/\
@@ -63,7 +63,7 @@ jobs:
     needs: build
     steps:
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: collection_tarball
 
